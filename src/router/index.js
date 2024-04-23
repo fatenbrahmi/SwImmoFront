@@ -1,13 +1,16 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import JoinUs from '../views/JoinUs.vue' 
+
 import profilView from '../views/profilView.vue' 
-import InscrireView from '@/views/InscrireView.vue' 
+
 import AcheterView from '@/views/AcheterView.vue' 
 import LouerView from '@/views/LouerView.vue' 
 import ContactView from '@/views/ContactView.vue'
 import resetpwdView from '@/views/resetpwdView.vue'
 import AnnonceView from '@/views/AnnonceView.vue'
+import DeposerAnnonce from '@/views/DeposerAnnonce.vue'
+
+import ConnexionView from '../views/ConnexionView.vue'
 
 
 const routes = [
@@ -27,16 +30,12 @@ const routes = [
     component:AnnonceView
   },
   {
-    path: '/ProfilConnexion',
-    name: 'JoinUs',
-    component: JoinUs
+    path: '/Connexion',
+    name: 'ConnexionView',
+    component: ConnexionView
   },
   
-  {
-    path: '/register',
-    name: 'InscrireView',
-    component: InscrireView
-  },
+  
   {
     path: '/resetpwd',
     name: 'resetpwdView',
@@ -57,6 +56,11 @@ const routes = [
     path: '/Contact', // Définissez le chemin de la route
     name: 'ContactView', // Donnez un nom à votre route
     component: ContactView // Associez le chemin à votre composant AcheterView
+  },
+  {
+    path: '/DeposerAnnonce', 
+    name: 'DeposerAnnoce', 
+    component: DeposerAnnonce 
   },
 ]
 

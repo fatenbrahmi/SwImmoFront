@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+
+
 import jQuery from 'jquery';
 import 'animate.css/animate.min.css'
 import 'easing-js/easing.min.js'

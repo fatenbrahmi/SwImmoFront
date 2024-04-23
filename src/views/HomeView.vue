@@ -46,8 +46,8 @@
    
 
 
-        <!-- Search Start -->
-        <div class="container-fluid bg-warning mb-4 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+   <!-- Search Start -->
+   <div class="container-fluid bg-warning mb-4 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
                 <div class="row g-2">
                     <div class="col-md-10">
@@ -113,16 +113,7 @@
                         </div>
 
 
-                        <div class="col-md-4">
-                            <select class="form-select border-0 py-3">
-                                <option selected>Nombre de chambres</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5+">5+</option>
-                             </select>
-                            </div>
+                        
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -192,7 +183,7 @@ notre plateforme est votre partenaire idéal dans votre parcours immobilier.</p>
                     <div id="tab-1" class="tab-pane fade show p-0 active">
                         <div class="row g-4">
                             <div class="col-lg-4 col-md-6">
-                                 <div class="property-item rounded overflow-hidden">
+                                 <div class="property-item rounded overflow-hidden h-100">
                                      <div class="position-relative overflow-hidden">
                                          <a href=""><img class="img-fluid" src="../Assets/img/property-1.jpg" alt=""></a>
                                          <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
@@ -215,7 +206,7 @@ notre plateforme est votre partenaire idéal dans votre parcours immobilier.</p>
 
 
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                                <div class="property-item rounded overflow-hidden">
+                                <div class="property-item rounded overflow-hidden h-100">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/img/property-2.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
@@ -238,7 +229,7 @@ notre plateforme est votre partenaire idéal dans votre parcours immobilier.</p>
 
 
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                <div class="property-item rounded overflow-hidden">
+                                <div class="property-item rounded overflow-hidden h-100">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/terr.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
@@ -616,7 +607,7 @@ export default {
 
 /* Style lorsque l'annonce est ajoutée aux favoris */
 .heart-icon.active {
-    color: red; /* Couleur rouge pour indiquer que l'annonce est dans les favoris */
+    color: rgb(255, 251, 0); /* Couleur rouge pour indiquer que l'annonce est dans les favoris */
 }
 
 .paging {

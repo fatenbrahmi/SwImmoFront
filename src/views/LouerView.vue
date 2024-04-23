@@ -112,7 +112,7 @@
                     <div id="tab-1" class="tab-pane fade show p-0 active">
                         <div class="row g-4">
                             <div class="col-lg-4 col-md-6">
-                                 <div class="property-item rounded overflow-hidden">
+                                 <div class="property-item rounded overflow-hidden h-100">
                                      <div class="position-relative overflow-hidden">
                                          <a href=""><img class="img-fluid" src="../Assets/img/property-1.jpg" alt=""></a>
                                          <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
@@ -135,7 +135,7 @@
 
 
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                                <div class="property-item rounded overflow-hidden">
+                                <div class="property-item rounded overflow-hidden h-100">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/img/property-2.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
@@ -158,7 +158,7 @@
 
 
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                <div class="property-item rounded overflow-hidden">
+                                <div class="property-item rounded overflow-hidden h-100">
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/terr.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
