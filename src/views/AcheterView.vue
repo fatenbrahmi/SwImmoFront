@@ -1,4 +1,5 @@
 <template>
+   <MyNavbar/>
     <div class="container-fluid bg-warning mb-4 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
         <div class="container">
             <div class="row g-2">
@@ -15,7 +16,7 @@
                                     <option value="3">Gabès</option>
                                     <option value="3">Bizerte</option>
                                     <option value="3">Kairouan</option>
-                                    <option value="3">Gafsa</option>
+                                    <option value="3">Gafsa</option>&
                                     <option value="3">Nabeul</option>
                                     <option value="3">La Marsa</option>
                                     <option value="3">Kelibia</option>
@@ -63,7 +64,7 @@
                                 <option value="4">4</option>
                                 <option value="5+">5+</option>
                              </select>
-                             </div>
+                        </div>
 
 
 
@@ -91,8 +92,22 @@
                            
                         </div>
                     </div>
-                   
+                    <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+                        <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary " data-bs-toggle="pill" href="#tab-1">Tous</a>
+                            </li>
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">À Louer</a>
+                            </li>
+                            <li class="nav-item me-0">
+                                <a class="btn btn-outline-warning active" data-bs-toggle="pill" href="#tab-3">À Vendre</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+
+
 
 
 
@@ -173,7 +188,7 @@
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/img/property-4.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">299 000 DT</h5>
@@ -218,7 +233,7 @@
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">villa</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">299 000 DT</h5>
@@ -249,250 +264,14 @@
                     </div>
 
 
-                    <div id="tab-2" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-12 text-center">
-                                <a class="btn btn-primary py-3 px-5" href="">Browse More Property</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-3" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Vendre</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
+                   
                             <div class="col-12 text-center">
                                 <a class="btn btn-warning py-3 px-5" href="">Browse More Property</a> 
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                
+           
         </div>
         <!-- Property List End -->
    
@@ -500,8 +279,12 @@
 
 
 <script>
+import MyNavbar from '@/components/MyNavbar.vue'
 export default {
-    
+    components:{
+    MyNavbar,
+   
+  },
    mounted() {
         // Sélectionnez chaque icône du cœur individuellement
         const heartIcons = document.querySelectorAll('.heart-icon');
@@ -512,8 +295,15 @@ export default {
                 heartIcon.classList.toggle('active');
             });
         });
+        window.addEventListener('scroll', () => {
+      if (window.scrollY > 45) {
+        document.querySelector('.nav-bar').classList.add('sticky-top');
+      } else {
+        document.querySelector('.nav-bar').classList.remove('sticky-top');
+      }
+    });
     },
-  name: 'HomeView',
+ 
 };
 </script>
 
@@ -526,7 +316,7 @@ export default {
 
 /* Style lorsque l'annonce est ajoutée aux favoris */
 .heart-icon.active {
-    color: red; /* Couleur rouge pour indiquer que l'annonce est dans les favoris */
+    color: rgb(246, 255, 0); /* Couleur rouge pour indiquer que l'annonce est dans les favoris */
 }
 
 .paging {

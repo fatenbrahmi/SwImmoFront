@@ -1,4 +1,5 @@
 <template>
+     <MyNavbar/>
     <div class="container-fluid bg-warning mb-4 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
         <div class="container">
             <div class="row g-2">
@@ -94,13 +95,13 @@
                     <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                         <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-warning active" data-bs-toggle="pill" href="#tab-1">Tous</a>
+                                <a class="btn btn-outline-primary " data-bs-toggle="pill" href="#tab-1">Tous</a>
                             </li>
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">À Louer</a>
+                                <a class="btn btn-outline-warning active" data-bs-toggle="pill" href="#tab-2">À Louer</a>
                             </li>
                             <li class="nav-item me-0">
-                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">À Louer</a>
+                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">À Vendre</a>
                             </li>
                         </ul>
                     </div>
@@ -230,7 +231,7 @@
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">299 000 DT</h5>
@@ -363,7 +364,7 @@
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">299 000 DT</h5>
@@ -484,7 +485,7 @@
                                     <div class="position-relative overflow-hidden">
                                         <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">299 000 DT</h5>
@@ -512,8 +513,12 @@
 
 
 <script>
+import MyNavbar from '@/components/MyNavbar.vue'
 export default {
-    
+    components:{
+    MyNavbar,
+   
+  },
    mounted() {
         // Sélectionnez chaque icône du cœur individuellement
         const heartIcons = document.querySelectorAll('.heart-icon');
@@ -524,8 +529,15 @@ export default {
                 heartIcon.classList.toggle('active');
             });
         });
+        window.addEventListener('scroll', () => {
+      if (window.scrollY > 45) {
+        document.querySelector('.nav-bar').classList.add('sticky-top');
+      } else {
+        document.querySelector('.nav-bar').classList.remove('sticky-top');
+      }
+    });
     },
-  name: 'LouerProprities',
+ 
 };
 </script>
 

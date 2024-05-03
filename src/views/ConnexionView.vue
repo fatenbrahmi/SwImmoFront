@@ -56,9 +56,6 @@
           <button type="submit">Sign Up</button>
         </form>
       </div>
-
-
-      //login
       
       <div class="form-container sign-in-container">
         <form @submit.prevent="loginUser">
@@ -75,10 +72,7 @@
           <button type="submit">Sign In</button>
         </form>
       </div>
-      //fin de login 
-
-
-
+      
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-left">
@@ -98,38 +92,79 @@
 </template>
 
 <script>
-//import { accountService } from '../services/account.service';// Import du service pour la gestion des comptes
+import axios from 'axios';
+import FormData from 'form-data';
 
 export default {
   data() {
     return {
+      nom: '',
+      prenom: '',
       email: '',
-      password: ''
+      password: '',
+      repeatPassword: '',
+      telephone: '',
+      profil: '',
     };
   },
+  
   methods: {
-    //loginUser() {
-     // accountService.login(this.email, this.password)
-       // .then(response => {
-         // console.log(response.data);
-          // Gérer la réponse du backend, par exemple, stocker le token dans le local storage
-         // localStorage.setItem('token', response.data.token);
-          // Rediriger l'utilisateur vers le tableau de bord ou toute autre page appropriée
-          //this.$router.push('/Annonces');
-       // })
-       // .catch(error => {
-         // console.error(error);
-          // Gérer les erreurs, par exemple, afficher un message d'erreur à l'utilisateur
-      //  });
-  //  },
-    // Ajoutez ici la méthode pour l'inscription utilisateur
-  }
+    toggleSignUp() {
+      const container = document.getElementById('container');
+      container.classList.add("right-panel-active");
+    },
+    toggleSignIn() {
+      const container = document.getElementById('container');
+      container.classList.remove("right-panel-active");
+    },
+    loginUser() {
+      axios.post('http://localhost:3000/auth/login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          console.log(response.data);
+          // Handle server response
+        })
+        .catch(error => {
+          console.error(error);
+          // Handle request errors
+        });
+    },
+    async submitForm() {
+      const formData = new FormData();
+      formData.append('nom', this.nom);
+      formData.append('prenom', this.prenom);
+      formData.append('email', this.email);
+      formData.append('password', this.password);
+      formData.append('repeatPassword', this.repeatPassword);
+      formData.append('telephone', this.telephone);
+      formData.append('profil', this.profil);
+      
+      try {
+        const response = await axios.post('http://localhost:3000/auth/register', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        
+        console.log(response.data);
+        
+        // Réinitialiser les champs du formulaire après l'envoi
+        this.nom = '';
+        this.prenom = '';
+        this.email = '';
+        this.password = '';
+        this.repeatPassword = '';
+        this.telephone = '';
+        this.profil = '';
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 }
 </script>
-
-<style scoped>
-/* Ajoutez vos styles CSS personnalisés ici */
-</style>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');

@@ -1,7 +1,7 @@
 <template>
   <div id="#app">
 
-<MyNavbar />
+
 <br>
 <br>
 <br>
@@ -14,12 +14,12 @@
 
 
 <script>
-import MyNavbar from '@/components/MyNavbar.vue'
+
 import MyFooter from './components/MyFooter.vue';
 
 export default {
   components:{
-    MyNavbar,
+   
     MyFooter
   }
 }

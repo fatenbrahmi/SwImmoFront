@@ -13,29 +13,41 @@
           <router-link to="/Acheter" class="nav-item nav-link">Acheter</router-link>
           <router-link to="/Vendre" class="nav-item nav-link">Vendre</router-link>
           <router-link to="/Louer" class="nav-item nav-link">Louer</router-link>
-          <router-link to="/Annonces" class="nav-item nav-link">Mes Annonces</router-link>
+          <router-link to="/Agent" class="nav-item nav-link">Agent</router-link>
         </div>
         <div class="d-flex align-items-center position-relative mx-2">
 
 
-          
+          <li class="nav-item pe-3">
+  <router-link to="/profil-list" class="nav-item nav-link"><i class="fas fa-bell"></i> </router-link>
+</li>
+
+<li class="nav-item pe-3">
+  <router-link to="/profil-list" class="nav-item nav-link"><i class="fas fa-heart"></i> </router-link>
+</li>
           <router-link to="/DeposerAnnonce" class="btn btn-info px-3 me-lg-4 d-none d-lg-flex">Déposer une Annonce</router-link>
 
 
 
+<li class="nav-item dropdown pe-3">
+  <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+    <i class="fas fa-user"></i> <!-- Icône du profil -->
+    <span class="d-none d-md-block dropdown-toggle ps-2">Join Us Now</span>
+  </a>
 
-    <img class="img-fluid me-lg-2" src="../Assets/profil.jpg" alt="Icon" style="width: 30px; height: 30px;">
+  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+    <li class="dropdown-header">
+      <i class="fas fa-user"></i>
+    </li>
+    <li><hr class="dropdown-divider"></li>
 
-  <div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"></a>
-    <div class="dropdown-menu rounded-0 m-0 position-absolute start-0">
-      <router-link to="/profil" class="dropdown-item">Mon Profil</router-link>
-      <router-link to="/Connexion" class="dropdown-item">Se connecter</router-link>
-      <router-link to="/profil-list" class="dropdown-item">Mes alerts</router-link>
-      <router-link to="/profil-list" class="dropdown-item">Mes favoris</router-link>
-      <router-link to="/profil-list" class="dropdown-item">Se Déconnecter</router-link>
-    </div>
-  </div>
+    <li><router-link to="/profil" class="dropdown-item"><i class="fas fa-user"></i> <span>My Profile</span></router-link></li>
+    <li><router-link to="/connexion" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> <span>Se connecter</span></router-link></li>
+    <li> <router-link to="/Annonces" class="dropdown-item"><i class="fas fa-newspaper"></i> Mes Annonces</router-link></li>
+    <li><router-link to="/deconnexion" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> <span>Se Déconnecter</span></router-link></li>
+  </ul>
+</li>
+
 </div>
       </div>
     </nav>
@@ -45,9 +57,18 @@
 
 <script>
 export default {
-  name: 'MyNavbar'
+  name: 'MyNavbar',
+  
  
 }
 </script>
+<style scoped>
+.nav-item {
+  list-style: none;
+  margin-right: 10px;
+}
+  .nav-link .fas:hover {
+    color: #FFC107 !important; /* Couleur jaune de Bootstrap */
+  }
 
-
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-4 mx-auto mt-8">
+  <div class="container-fluid header bg-white p-0 background-image">
     <div class="flex flex-wrap -mx-2 justify-center">
       <div class="w-full md:w-2/3 lg:w-1/2 px-2">
         <h2 class="text-xl text-center mb-4">Déposer votre Annonce</h2>
@@ -23,8 +23,7 @@
                 <div class="text-sm text-gray-600">Profil*</div>
                 <select name="profil" v-model="user.profil" class="w-full mt-2 form-select">
                   <option value="" disabled>Choisir...</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Superadmin">Superadmin</option>
+                  
                   <option value="Agent_immobilier">Agent immobilier</option>
                   <option value="Proprietaire">Propriétaire</option>
                 </select>
@@ -85,7 +84,7 @@
           <div class="px-4 mt-8">
             <label>
               <div class="text-sm text-gray-600">Description</div>
-              <textarea v-model="annonce.description" name="description" class="w-full" style="width: 200%; height: 100px;"></textarea>
+              <textarea v-model="annonce.description" name="description" class="w-full" style="width: 100%; height: 100px;"></textarea>
             </label>
           </div>
           <div class="mt-8 flex justify-end">
@@ -168,11 +167,12 @@ export default {
 
 
 <style scoped>
-.container {
-  background-image: url('../Assets/accueil.png'); /* Ajoutez l'image de fond */
-  background-size: cover;
-  background-position: center;
-}
+.background-image {
+    background-image: url("../Assets/slide.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Utilise la hauteur complète de la fenêtre */
+  }
 /* Style pour les inputs */
 .form-input {
   background-color: rgb(255, 255, 255); /* Change la couleur de fond des inputs */

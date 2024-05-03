@@ -12,6 +12,10 @@ import DeposerAnnonce from '@/views/DeposerAnnonce.vue'
 
 import ConnexionView from '../views/ConnexionView.vue'
 
+import AgentView from '@/views/AgentView.vue'
+import DashboardAgent from '@/views/DashboardAgent.vue'
+import AnnonceAgent from '@/views/AnnonceAgent.vue'
+import EventsView from '@/views/EventsView.vue'
 
 const routes = [
   {
@@ -29,6 +33,24 @@ const routes = [
     name: 'AnnonceView',
     component:AnnonceView
   },
+  {
+    path: '/DashboardAgent',
+    name: 'DashboardAgent',
+    component:DashboardAgent
+  },
+  {
+    path: '/Events',
+    name: 'EventsView',
+    component:EventsView
+  },
+  {
+    path: '/AnnonceAgent',
+    name: 'AnnonceAgent',
+    component:AnnonceAgent
+  },
+
+
+
   {
     path: '/Connexion',
     name: 'ConnexionView',
@@ -61,6 +83,11 @@ const routes = [
     path: '/DeposerAnnonce', 
     name: 'DeposerAnnoce', 
     component: DeposerAnnonce 
+  },
+  {
+    path: '/Agent', 
+    name: 'AgentView', 
+    component: AgentView
   },
 ]
 

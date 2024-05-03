@@ -1,42 +1,24 @@
-import { createApp } from 'vue'; 
+import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
-import jQuery from 'jquery';
-import 'animate.css/animate.min.css'
-import 'easing-js/easing.min.js'
-import 'owl.carousel/dist/assets/owl.carousel.min.css';
-
-
-
-
+// Components
 
 
-window.jQuery = jQuery;
-window.$ = jQuery;
-
-
+const vuetify = createVuetify({
+  components,
+  directives,
+})
 
 const app = createApp(App);
-
-// Initiate the wowjs
-import Wow from 'wow.js';
-new Wow().init();
-
-// Sticky Navbar
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 45) {
-        document.querySelector('.nav-bar').classList.add('sticky-top');
-    } else {
-        document.querySelector('.nav-bar').classList.remove('sticky-top');
-    }
-});
-
-
-
-
+app.use(vuetify)
 app.use(store);
 app.use(router);
 app.mount('#app');
