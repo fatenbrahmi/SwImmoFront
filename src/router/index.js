@@ -16,7 +16,11 @@ import AgentView from '@/views/AgentView.vue'
 import DashboardAgent from '@/views/DashboardAgent.vue'
 import AnnonceAgent from '@/views/AnnonceAgent.vue'
 import EventsView from '@/views/EventsView.vue'
+import SignUpView from '@/views/SignUpView.vue'
 
+import AdminAnnonces from '@/views/AdminAnnonces.vue'
+import AdminDashboard from '@/views/AdminDashboard.vue'
+import AdminUtilisateurs from '@/views/AdminUtilisateurs.vue'
 const routes = [
   {
     path: '/',
@@ -32,6 +36,11 @@ const routes = [
     path: '/Annonces',
     name: 'AnnonceView',
     component:AnnonceView
+  },
+  {
+    path: '/SignUp',
+    name: 'SignUpView',
+    component:SignUpView
   },
   {
     path: '/DashboardAgent',
@@ -89,6 +98,24 @@ const routes = [
     name: 'AgentView', 
     component: AgentView
   },
+// coté Super admin
+  {
+    path: '/AdminAnnonces',
+    name: 'AdminAnnonces',
+    component: AdminAnnonces
+  },
+  {
+    path: '/AdminDashboard',
+    name: 'AdminDashboard',
+    component: AdminDashboard
+  },
+   {
+    path: '/AdminUtilisateurs',
+    name: 'AdminUtilisateurs',
+    component: AdminUtilisateurs
+  },
+
+
 ]
 
 const router = createRouter({

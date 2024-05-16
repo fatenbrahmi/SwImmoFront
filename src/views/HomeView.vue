@@ -11,7 +11,7 @@
             <br><br>
             
             <li class="nav-item list-unstyled"> <!-- Ajout de la classe list-unstyled pour supprimer le point -->
-    <div class="input-group rounded" style="background-color: #16c5d4;">
+    <div class="input-group rounded" style="background-color: #D9D9D9;">
         <input id="searchInput" type="text" class="form-control rounded-pill" placeholder="Search" aria-label="Search" style="width: 500px; height: 50px;">
         <div class="input-group-append">
             <span class="input-group-text bg-transparent border-0" style="margin-top: 10px;">
@@ -350,7 +350,7 @@
    
   <style scoped>
   #searchInput {
-    background-color: #16c5d4; /* Couleur de fond */
+    background-color: #D9D9D9; /* Couleur de fond */
     border: none; /* Supprimer la bordure */
     outline: none; /* Supprimer le contour de focus */
     box-shadow: none; /* Supprimer l'ombre */

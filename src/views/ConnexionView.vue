@@ -1,436 +1,319 @@
 <template>
-  <div class="page">
-    <div class="container" id="container">
-      <div class="form-container sign-up-container">
-        <form @submit.prevent="submitForm">
-          <h1>Create Account</h1>
-          <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <span>or use your email for registration</span>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="text" class="form-control" v-model="nom" placeholder="Nom" required/>
-              </div>
+  <div>
+    <MyNavbar/>
+    <div class="background-image">
+      <div class="cont_login">
+        <div class="cont_ba_opcitiy">
+          <h2>LOGIN</h2>
+          <p>Bienvenue ! Veuillez vous connecter avec SWIMMO.</p>
+          <br>
+          <form @submit.prevent="login">
+            <div class="mb-3">
+            
+              <input type="email" class="custom-input" id="email" v-model="loginData.email" placeholder="Email" required>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="text" class="form-control" v-model="prenom" placeholder="Prénom" required/>
-              </div>
+            <div class="mb-3">
+              <input type="password" class="custom-input" id="password" v-model="loginData.motDePasse" placeholder="Mot de passe" required>
+              <a href="#exampleModalToggle" class="forgot-password" data-bs-toggle="modal">Mot de passe oublié ?</a>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="email" class="form-control" v-model="email" placeholder="Email" required/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="tel" class="form-control" v-model="telephone" placeholder="Téléphone" required/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <select class="form-select" v-model="profil" placeholder="Profil" required>
-                  <option selected disabled>Choisissez votre profil*</option>
-                  <option value="agent">Agent immobilier</option>
-                  <option value="acquereur">Acquéreur</option>
-                  <option value="locataire">Locataire</option>
-                  <option value="proprietaire">Propriétaire</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="password" class="form-control" v-model="password"  placeholder="Password" required/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="password" class="form-control" v-model="repeatPassword" placeholder="Repeat Password" required/>
-              </div>
-            </div>
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
+            <button type="submit" class="btn_login">Connexion</button>
+          </form>
+        </div>
       </div>
-      
-      <div class="form-container sign-in-container">
-        <form @submit.prevent="loginUser">
-          <h1>Sign in</h1>
-          <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <span>or use your account</span>
-          <input type="email" v-model="email" placeholder="Email" required />
-          <input type="password" v-model="password" placeholder="Password" required/>
-          <router-link to="/resetpwd">Forgot your password?</router-link>
-          <button type="submit">Sign In</button>
-        </form>
+      <div class="col_md_sign_up">
+        <div class="cont_ba_opcitiy">
+          <h2>SIGN UP</h2>
+          <p>Vous n'avez pas encore de compte ? Créez-le en quelques secondes pour bénéficier.</p>
+          <br>
+          <router-link to="/signup" class="btn_sign_up">Créer mon compte</router-link>
+        </div>
       </div>
-      
-      <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-panel overlay-left">
-            <h1>Welcome Back!</h1>
-            <p>To keep connected with us please login with your personal info</p>
-            <button class="ghost" @click="toggleSignIn">Sign In</button>
+    </div>
+
+  <!-- Modal for Password Recovery -->
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered custom-modal-dialog">
+        <div class="modal-content custom-modal-content">
+          <div class="modal-header custom-modal-header">
+            <h5 class="modal-title custom-modal-title" id="exampleModalToggleLabel">Renseignez votre adresse e-mail et nous vous enverrons tout de suite la marche à suivre.</h5>
+            <button type="button" class="btn-close custom-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <br><br>
           </div>
-          <div class="overlay-panel overlay-right">
-            <h1>Hello, Friend!</h1>
-            <p>Enter your personal details and start journey with us</p>
-            <button class="ghost" @click="toggleSignUp">Sign Up</button>
+          <br><br><br>
+          <div class="modal-body">
+            <div class="mb-3">
+             
+              <input type="email" class="custom-input" id="email" placeholder="Email" required>
+            </div>
           </div>
+          <div class="modal-footer">
+            <button class="btn btn-warning custom-modal-button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">RÉNITIALISER LE MOT DE PASSE</button>
+          </div>
+          <br><br>
         </div>
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
-import axios from 'axios';
-import FormData from 'form-data';
+import MyNavbar from '@/components/MyNavbar.vue'
+import axios from 'axios'
 
 export default {
+  components: {
+    MyNavbar,
+  },
   data() {
     return {
-      nom: '',
-      prenom: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
-      telephone: '',
-      profil: '',
-    };
-  },
-  
-  methods: {
-    toggleSignUp() {
-      const container = document.getElementById('container');
-      container.classList.add("right-panel-active");
-    },
-    toggleSignIn() {
-      const container = document.getElementById('container');
-      container.classList.remove("right-panel-active");
-    },
-    loginUser() {
-      axios.post('http://localhost:3000/auth/login', {
-          email: this.email,
-          password: this.password
-        })
-        .then(response => {
-          console.log(response.data);
-          // Handle server response
-        })
-        .catch(error => {
-          console.error(error);
-          // Handle request errors
-        });
-    },
-    async submitForm() {
-      const formData = new FormData();
-      formData.append('nom', this.nom);
-      formData.append('prenom', this.prenom);
-      formData.append('email', this.email);
-      formData.append('password', this.password);
-      formData.append('repeatPassword', this.repeatPassword);
-      formData.append('telephone', this.telephone);
-      formData.append('profil', this.profil);
+      loginData: {
+        email: '',
+        motDePasse: ''
+      },
+      recoveryEmail: '',
       
+    }
+  },
+  methods: {
+    async login() {
       try {
-        const response = await axios.post('http://localhost:3000/auth/register', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        
-        console.log(response.data);
-        
-        // Réinitialiser les champs du formulaire après l'envoi
-        this.nom = '';
-        this.prenom = '';
-        this.email = '';
-        this.password = '';
-        this.repeatPassword = '';
-        this.telephone = '';
-        this.profil = '';
+        // Sending POST request for login
+        const response = await axios.post('http://localhost:3000/auth/login', {
+          email: this.loginData.email,
+          motDePasse: this.loginData.motDePasse
+        })
+
+        // Success response
+        console.log(response.data)
+        alert("Connexion réussie !")
+
+        // Reset form fields after successful login
+        this.loginData.email = ''
+        this.loginData.motDePasse = ''
       } catch (error) {
-        console.error(error);
+        // Error handling
+        console.error(error)
+        if (error.response.status === 401) {
+          // Status 401 means incorrect credentials
+          alert("Adresse e-mail ou mot de passe incorrect.")
+        } else {
+          // Other error
+          alert("Une erreur s'est produite lors de la connexion : " + error.message)
+        }
       }
     },
+    // ce partie manque liaison avec le backend 
+    async recoverPassword() {
+      try {
+        // Send a POST request to your backend API for password recovery
+        const response = await axios.post('http://localhost:3000/api/recover-password', {
+          email: this.recoveryEmail
+        });
+
+        // Handle successful response (e.g., display success message)
+        console.log(response.data);
+        alert("Un email de récupération de mot de passe a été envoyé à votre adresse email.");
+
+        // Clear the recovery email field after successful submission
+        this.recoveryEmail = '';
+      } catch (error) {
+        // Handle errors (e.g., invalid email, unable to send email)
+        console.error(error);
+        alert("Une erreur s'est produite lors de la récupération du mot de passe.");
+      }
+    },
+    openModal() {
+    this.showRecoveryModal = true; // Set to true to show the modal
   },
+    closeModal() {
+      // Hide the password recovery modal using a ref and v-show directive
+      this.$refs.passwordRecoveryModal.style.display = 'none';
+    }
+  }
 }
 </script>
 
+
+
+
+
+
+
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
-* {
-	box-sizing: border-box;
+/* ------------------------------------ Click on login and Sign Up to  changue and view the effect
+---------------------------------------
+*/
+/* Styles personnalisés pour la modal */
+.custom-modal-dialog {
+  max-width: 700px; /* Largeur maximale de la modal */
 }
 
-
-.page {
-  background: #FFFFFF;
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 40px);
-  position: absolute;
-  place-content: center;
-  width: calc(100% - 40px);
-}
-h1 {
-	font-weight: bold;
-	margin: 0;
+.custom-modal-content {
+  background-color: #05465cb5; /* Couleur de fond de la modal */
 }
 
-h2 {
-	text-align: center;
+.custom-modal-header {
+  background-color: #05465cb5; /* Couleur de fond de l'en-tête de la modal */
 }
 
-p {
-	font-size: 14px;
-	font-weight: 100;
-	line-height: 20px;
-	letter-spacing: 0.5px;
-	margin: 20px 0 30px;
+.custom-modal-title {
+  font-size: 1rem; /* Taille de texte pour le titre de la modal */
+  color: #ffffff; /* Couleur du texte pour le titre de la modal */
 }
 
-span {
-	font-size: 12px;
+.custom-modal-close {
+  color: #ff0000; ; 
+  margin-right: 10px; /* Marge à droite de l'icône de fermeture */
+  
 }
 
-a {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	margin: 15px 0;
-}
-
-button {
-	border-radius: 20px;
-	border: 1px solid #FCCA07;
-	background-color: #FCCA07;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-}
-
-button:active {
-	transform: scale(0.95);
-}
-
-button:focus {
-	outline: none;
-}
-
-button.ghost {
-	background-color: transparent;
-	border-color: #FFFFFF;
-}
-
-form {
-	background-color: #FFFFFF;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 50px;
-	height: 100%;
-	text-align: center;
-}
-
-input {
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	margin: 8px 0;
-	width: 100%;
-}
-
-.container {
-	background-color: #FFFFFF;
-	border-radius: 10px;
- 
-	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
-}
-
-.form-container {
-	position: absolute;
-	top: 0;
-	height: 100%;
-	transition: all 0.6s ease-in-out;
-}
-
-.sign-in-container {
-	left: 0;
-	width: 50%;
-	z-index: 2;
-}
-
-.container.right-panel-active .sign-in-container {
-	transform: translateX(100%);
-}
-
-.sign-up-container {
-	left: 0;
-	width: 50%;
-	opacity: 0;
-	z-index: 1;
-}
-
-.container.right-panel-active .sign-up-container {
-	transform: translateX(100%);
-	opacity: 1;
-	z-index: 5;
-	animation: show 0.6s;
-}
-
-@keyframes show {
-	0%, 49.99% {
-		opacity: 0;
-		z-index: 1;
-	}
-	
-	50%, 100% {
-		opacity: 1;
-		z-index: 5;
-	}
-}
-
-.overlay-container {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: 50%;
-	height: 100%;
-	overflow: hidden;
-	transition: transform 0.6s ease-in-out;
-	z-index: 100;
-}
-
-.container.right-panel-active .overlay-container{
-	transform: translateX(-100%);
-}
-
-.overlay {
-	background: #FCCA07;
-	background: -webkit-linear-gradient(to right, #FCCA07, #FCCA07);
-	background: linear-gradient(to right, #FCCA07, #FCCA07);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: 0 0;
-	color: #FFFFFF;
-	position: relative;
-	left: -100%;
-	height: 100%;
-	width: 200%;
-  transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
-}
-
-.container.right-panel-active .overlay {
-  transform: translateX(50%);
-}
-
-.overlay-panel {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 40px;
-	text-align: center;
-	top: 0;
-	height: 100%;
-	width: 50%;
-	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
-}
-
-.overlay-left {
-	transform: translateX(-20%);
-}
-
-.container.right-panel-active .overlay-left {
-	transform: translateX(0);
-}
-
-.overlay-right {
-	right: 0;
-	transform: translateX(0);
-}
-
-.container.right-panel-active .overlay-right {
-	transform: translateX(20%);
-}
-
-.social-container {
-	margin: 20px 0;
-}
-
-.social-container a {
-	border: 1px solid #DDDDDD;
-	border-radius: 50%;
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0 5px;
-	height: 40px;
-	width: 40px;
-}
-
-
-
-
-
-
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.form-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.btn {
+.custom-modal-button {
+  font-size: 1rem; /* Taille de texte pour le bouton de la modal */
   padding: 10px 20px;
-  background-color: #FCCA07;
-  color: #fff;
+  margin-top: 20px; /* Rembourrage pour le bouton de la modal */
+}
+
+/* Styles personnalisés pour les champs d'email */
+.custom-input {
+  width: 100%; /* Largeur du champ d'email */
+  height: 40px; /* Hauteur du champ d'email */
+  font-size: 1rem; /* Taille de texte pour le champ d'email */
+}
+.btn_sign_up {
+  background-color: #f9d211;
   border: none;
-  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  border-radius: 3px;
+  box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  margin-top: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  
+}
+.forgot-password {
+  font-size: 14px; /* Taille de la police */
+  color: #040404; /* Couleur du texte */
+  text-decoration: underline; /* Soulignement du texte */
+  display: block; /* Affichage en bloc pour occuper toute la largeur disponible */
+  margin-top: 5px; /* Marge supérieure pour séparer du champ de saisie du mot de passe */
+}
+.custom-input {
+  width: 500px; /* Largeur personnalisée */
+  height: 40px; /* Hauteur personnalisée */
+  background-color: #f0f0f0; 
+  border-radius: 20px; /* Rayon de bordure pour arrondir les coins des deux côtés */
+}
+* {
+  margin: 0px auto;
+  padding: 0px;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
+.background-image {
+  position: absolute;
+  width: 100%;
+  display: flex;
+
+    background-image: url("../Assets/connexion2.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Utilise la hauteur complète de la fenêtre */
+  }
+
+.cont_login,
+.col_md_sign_up {
+  width: 50%; /* Les deux conteneurs auront la même largeur */
+  margin-top: 10%; /* Ajustez la marge supérieure si nécessaire */
+}
+
+.cont_login {
+  position: relative;
+}
+
+.cont_forms {
+  position: absolute;
+  overflow: hidden;
+  top: 0px;
+  left: 0px;
+  width: 100%; /* Ajustez la largeur si nécessaire */
+  height: 280px;
+  background-color: #eee;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.cont_info_log_sign_up {
+  position: absolute;
+  width: 100%; /* Ajustez la largeur si nécessaire */
+  height: 280px;
+  top: 20px;
+  z-index: 1;
+}
+
+.col_md_login {
+  position: relative;
+  float: left;
+}
+
+.col_md_login > h2 {
+  font-weight: 400;
+  margin-top: 70px;
+  color: #757575;
+}
+
+.col_md_login > p {
+  font-weight: 400;
+  margin-top: 15px;
+  width: 80%;
+  color: #37474f;
+}
+
+.btn_login {
+  background-color: #f9d211;
+  border: none;
+  padding: 10px;
+  width: 200px;
+  border-radius: 3px;
+  box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  margin-top: 10px;
   cursor: pointer;
 }
 
-.btn:hover {
-  background-color: #FCCA07;
+.col_md_sign_up {
+  position: relative;
+  float: left;
 }
 
-.form-check-input {
-  margin-right: 10px;
+.cont_ba_opcitiy > h2 {
+  font-weight: 400;
+  color: #fff;
 }
+
+.cont_ba_opcitiy > p {
+  font-weight: 400;
+  margin-top: 15px;
+  color: #fff;
+}
+/* ----------------------------------
+background text    
+------------------------------------
+ */
+.cont_ba_opcitiy {
+  position: relative;
+  background-color: rgba(99, 141, 162, 0.55);
+  width: 80%;
+  border-radius: 3px;
+  margin-top: 60px;
+  padding: 15px 0px;
+}
+
+
+
 </style>

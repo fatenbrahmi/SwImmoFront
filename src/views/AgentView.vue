@@ -9,7 +9,7 @@
           <h1><span class="text-light">Create your real estate agent profile</span></h1>
           <br>
           <router-link to="/Annonces" style="font-size: 1.25rem; padding: 1rem 2rem;" class="btn btn-primary">Get started</router-link>
-      
+      <br><br>
           <li class="nav-item">
             <div class="input-group rounded">
   <input type="text" class="form-control rounded-pill" placeholder="Search" aria-label="Search" style="width: 500px; height: 50px;">
@@ -51,6 +51,9 @@
   </script>
   
   <style scoped>
+   .nav-item {
+            list-style: none;
+        }
   .background-image {
     background-image: url("../Assets/slide.jpg");
     background-size: cover;

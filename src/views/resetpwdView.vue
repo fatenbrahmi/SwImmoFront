@@ -1,27 +1,25 @@
 <template>
-    <div class="card">
-      <div class="row page-message-container">
-        <p class="message"></p>
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel"> Renseignez votre adresse e-mail et nous vous enverrons tout de suite la marche à suivre.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="row">
-        <h1 class="page-title">Mot de passe oublié ?</h1>
-        <p class="subhead">Entrez l'adresse e-mail que vous utilisez pour vous connecter et nous vous enverrons par e-mail un lien permettant de réinitialiser votre mot de passe. Si vous ne recevez pas cet e-mail, vérifiez votre dossier de courrier indésirable.</p>
-  
-        <form action="#">
-          <input type="hidden" name="csrf_token" value="" class="js-csrf-input" aria-hidden="true">
-          
-          <div class="field">
-            <label for="email">Adresse e-mail</label>
-            <input type="email" class="input" name="email" id="email" value="" autocomplete="email" autocapitalize="off" autocorrect="off">
-          </div>
-  
-          <label tabindex="0" role="button" class="medium primary btn" id="forgot-password-cta">
-            <span class="btn-text">Réinitialiser le mot de passe</span>
-            <!-- Supprimez l'attribut "id" redondant -->
-            <input class="_hidden" type="submit" value="">
-          </label>
-        </form>            
+      <div class="modal-body">
+       
+        <div class="mb-3">
+          <label for="email" class="form-label">Adresse e-mail</label>
+          <input type="email" class="custom-input" id="email"  placeholder="Email" required>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-warning" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Rénitialiser Le Mot de Passe</button>
       </div>
     </div>
-  </template>
-  
+  </div>
+</div>
+
+<a class="btn btn-warning" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Rénitialiser Le Mot de Passe</a>
+</template>

@@ -36,16 +36,19 @@
   </a>
 
   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-    <li class="dropdown-header">
-      <i class="fas fa-user"></i>
-    </li>
-    <li><hr class="dropdown-divider"></li>
+  <li class="dropdown-header">
+    <i class="fas fa-user"></i>
+  </li>
+  <li><hr class="dropdown-divider"></li>
 
-    <li><router-link to="/profil" class="dropdown-item"><i class="fas fa-user"></i> <span>My Profile</span></router-link></li>
-    <li><router-link to="/connexion" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> <span>Se connecter</span></router-link></li>
-    <li> <router-link to="/Annonces" class="dropdown-item"><i class="fas fa-newspaper"></i> Mes Annonces</router-link></li>
-    <li><router-link to="/deconnexion" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> <span>Se Déconnecter</span></router-link></li>
-  </ul>
+  <li><router-link to="/profil" class="dropdown-item"><i class="fas fa-user"></i> <span>My Profile</span></router-link></li>
+  <li><router-link to="/connexion" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> <span>Connexion</span></router-link></li>
+  <li><router-link to="/Annonces" class="dropdown-item"><i class="fas fa-newspaper"></i> Mes Annonces</router-link></li>
+  <li><router-link to="/deconnexion" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> <span>Se Déconnecter</span></router-link></li>
+
+ 
+</ul>
+
 </li>
 
 </div>

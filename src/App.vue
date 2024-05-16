@@ -6,7 +6,7 @@
 <br>
 <br>
 <router-view></router-view>
-<MyFooter />
+
 </div>
 </template>
 
@@ -15,12 +15,12 @@
 
 <script>
 
-import MyFooter from './components/MyFooter.vue';
+
 
 export default {
   components:{
    
-    MyFooter
+
   }
 }
 </script>

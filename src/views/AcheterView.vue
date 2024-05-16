@@ -1,13 +1,13 @@
 <template>
    <MyNavbar/>
-    <div class="container-fluid bg-warning mb-4 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-        <div class="container">
-            <div class="row g-2">
-                <div class="col-md-10">
-                    <div class="row g-2">
-                        
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
+   <div class="container-fluid bg-warning mb-4 wow fadeIn d-flex justify-content-center align-items-center" data-wow-delay="0.1s" style="padding: 35px;">
+   
+    <div class="container">
+        <div class="row g-2">
+            <div class="col-md-10">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                                <select class="form-select border-0 py-3 custom-input">
                                     <option selected>Location</option>
                                     <option value="1">Tunis</option>
                                     <option value="2">Sousse</option>
@@ -38,13 +38,13 @@
                             </div>
                         
                         <div class="col-md-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Budget Max(DT)">
+                            <input type="text" class="form-control border-0 py-3 custom-input" placeholder="Budget Max(DT)">
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Superficie Max(m²)">
+                            <input type="text" class="form-control border-0 py-3 custom-input" placeholder="Superficie Max(m²)">
                         </div>
                         <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
+                                <select class="form-select border-0 py-3 custom-input">
                                     <option selected>Property Type</option>
                                     <option value="1">Departement</option>
                                     <option value="2">Villa</option>
@@ -56,7 +56,7 @@
 
 
                         <div class="col-md-4">
-                            <select class="form-select border-0 py-3">
+                            <select class="form-select border-0 py-3 custom-input">
                                 <option selected>Nombre de chambres</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -69,13 +69,17 @@
 
 
                         <div class="col-md-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Superficie Min(m²)">
+                            <input type="text" class="form-control border-0 py-3 custom-input" placeholder="Superficie Min(m²)">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <button class="btn btn-info border-0 w-100 py-3">Search</button>
-                </div>
+                
+            <div class="col-md-12">
+              <div class="flex justify-end">
+                <button type="submit" class="custom-button custom-input">Search</button>
+              </div>
+            </div>
+        
             </div>
         </div>
     </div>
@@ -308,6 +312,18 @@ export default {
 </script>
 
 <style scoped>
+.custom-input {
+    border-radius: 20px;
+    
+}
+.custom-button {
+  padding: 10px 100px; /* Espacement intérieur */
+  background-color: #18a7fad2; /* Couleur de fond */
+  color: #fff; /* Couleur du texte */
+  border: none; /* Pas de bordure */
+  border-radius: 10px; /* Bordure arrondie */
+  cursor: pointer; /* Curseur pointer */
+}
 /* Style de base pour l'icône de cœur */
 .heart-icon {
     font-size: 24px;
