@@ -5,38 +5,36 @@
       <div class="col_md_sign_up">
         <div class="cont_ba_opcitiy">
           <h2>S'INSCRIRE</h2>
-          <br>
           <form @submit.prevent="registerUser" class="form">
-            <div class="mb-3">
+            <div class="mb-1">
               <input type="text" class="custom-input" v-model="userData.nom" placeholder="Nom" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <input type="text"  class="custom-input" v-model="userData.prenom" placeholder="Prénom" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <input type="email" class="custom-input" v-model="userData.email" placeholder="Email" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <input type="text" class="custom-input" v-model="userData.telephone" placeholder="Téléphone" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <input type="password" class="custom-input" v-model="userData.motDePasse" placeholder="Mot de passe" required>
               
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <select v-model="userData.Profil" required>
                 <option value="" disabled selected hidden>Choisir un profil</option>
-                <option value="superAdmin">Superadmin</option>
-                <option value="agentImmobilier">Agent immobilier</option>
+                <option value="agentImmobilier">Agent Immobilier</option>
                 <option value="internaute">Internaute</option>
-                <option value="adminAgence">admin Agence</option>
+                <option value="adminAgence">Admin Agence</option>
                 <option value="delegue">Délégué</option>
               </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
               <input type="file" class="custom-input"  @change="onFileChange" placeholder="Image de profil" required>
             </div>
-            <button type="submit" class= "btn_sign_up">Sign Up</button>
+            <button type="submit" class= "btn_sign_up">S'inscrire</button>
           </form>
         </div>
       </div>
@@ -64,25 +62,28 @@ export default {
         telephone: '',
         motDePasse: '',
         Profil: '',
-        image: null
+        photoProfil: ''
       }
     }
   },
   methods: {
     onFileChange(event) {
-      this.userData.image = event.target.files[0];
+      this.userData.photoProfil = event.target.files[0];
     },
     registerUser() {
+
+      let myFormData = new FormData();
+
+      myFormData.append('nom', this.userData.nom);
+      myFormData.append('prenom', this.userData.prenom);
+      myFormData.append('email', this.userData.email);
+      myFormData.append('telephone', this.userData.telephone);
+      myFormData.append('motDePasse', this.userData.motDePasse);
+      myFormData.append('Profil', this.userData.Profil);
+      myFormData.append('file', this.userData.photoProfil);
+
       // Envoi de la requête POST pour l'inscription
-      axios.post('http://localhost:3000/auth/register', {
-          nom: this.userData.nom,
-          prenom: this.userData.prenom,
-          email: this.userData.email,
-          telephone: this.userData.telephone,
-          motDePasse: this.userData.motDePasse,
-          Profil: this.userData.Profil,
-          photoProfil: this.userData.photoProfil
-        })
+      axios.post('http://localhost:3000/auth/register', myFormData)
         .then(response => {
           console.log(response.data);
           alert("Inscription réussie !");
@@ -114,7 +115,7 @@ export default {
 input, select {
   width: 300px;
   height: 40px;
-  border-radius: 20px;
+  border-radius: 100px;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #f0f0f0; /* Couleur de fond pour les champs */
@@ -135,7 +136,8 @@ button {
   width: 500px; /* Largeur personnalisée */
   height: 40px; /* Hauteur personnalisée */
   background-color: #f0f0f0; 
-  border-radius: 20px; /* Rayon de bordure pour arrondir les coins des deux côtés */
+  border-radius: 10px;
+  border-color:#8f8f8f ; /* Rayon de bordure pour arrondir les coins des deux côtés */
 }
 * {
   margin: 0px auto;
@@ -224,9 +226,9 @@ background text
   border: none;
   padding: 10px;
   width: 200px;
-  border-radius: 3px;
-  box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
-  color: #fff;
+  border-radius: 10px;
+  box-shadow: 1px 5px 20px -5px rgba(85, 85, 85, 0.4);
+  color: #ffffff;
   margin-top: 10px;
   cursor: pointer;
 }

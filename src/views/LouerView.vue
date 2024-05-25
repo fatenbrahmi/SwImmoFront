@@ -1,547 +1,334 @@
 <template>
-     <MyNavbar/>
-    <div class="container-fluid bg-warning mb-4 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+    <MyNavbar />
+    <div class="container-fluid bg-warning mb-4 wow fadeIn d-flex justify-content-center align-items-center"
+        data-wow-delay="0.1s" style="padding: 35px;">
+
         <div class="container">
             <div class="row g-2">
                 <div class="col-md-10">
                     <div class="row g-2">
-                        
-                            <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Location</option>
-                                    <option value="1">Tunis</option>
-                                    <option value="2">Sousse</option>
-                                    <option value="3">Monastir</option>
-                                    <option value="3">Sfax</option>
-                                    <option value="3">Gabès</option>
-                                    <option value="3">Bizerte</option>
-                                    <option value="3">Kairouan</option>
-                                    <option value="3">Gafsa</option>
-                                    <option value="3">Nabeul</option>
-                                    <option value="3">La Marsa</option>
-                                    <option value="3">Kelibia</option>
-                                    <option value="3">Le Kef</option>
-                                    <option value="3">Zaghouan</option>
-                                    <option value="3">Tozeur</option>
-                                    <option value="3">Djebba</option>
-                                    <option value="3">Zarzis</option>
-                                    <option value="3">Mahdia</option>
-                                    <option value="3">Tataouine</option>
-                                    <option value="3">Mednine</option>
-                                    <option value="3">Sidi Bouzied</option>
-                                    <option value="3">Gasrin</option>
-                                    <option value="3">Monastir</option>
-                                    <option value="3">Monastir</option>
-                                    <option value="3">Monastir</option>
-                                    <option value="3">Monastir</option>
-                                </select>
-                            </div>
-                        
                         <div class="col-md-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Budget Max(DT)">
+                            <button class="btn custom-but dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Ville
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Tunis')">Tunis</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Sousse')">Sousse</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Monastir')">Monastir</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Sfax')">Sfax</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Gabès')">Gabès</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Bizerte')">Bizerte</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Kairouan')">Kairouan</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Gafsa')">Gafsa</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Nabeul')">Nabeul</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'La Marsa')">La Marsa</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Kelibia')">Kelibia</a></li>
+                                <li><a class="dropdown-item" href="#" @click.prevent="setFilter(undefined, 'Le Kef')">Le
+                                        Kef</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Zaghouan')">Zaghouan</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Tozeur')">Tozeur</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Djerba')">Djerba</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Zarzis')">Zarzis</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Mahdia')">Mahdia</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Tataouine')">Tataouine</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Mednine')">Mednine</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Sidi Bouzid')">Sidi Bouzid</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, 'Gasrin')">Gasrin</a></li>
+                            </ul>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Superficie Max(m²)">
+                            <button class="btn custom-but dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Type
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li><a class="dropdown-item" href="#" @click.prevent="setFilter('', undefined)">Tous</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter('maison', undefined)">Maison</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter('appartement', undefined)">Appartement</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter('villa', undefined)">Villa</a></li>
+                                
+                            </ul>
                         </div>
-                        <div class="col-md-4">
-                                <select class="form-select border-0 py-3">
-                                    <option selected>Property Type</option>
-                                    <option value="1">Departement</option>
-                                    <option value="2">Villa</option>
-                                    <option value="3">Maison</option>
-                                    <option value="3">Terrain</option>
-                                    <option value="3">Autres</option>
-                                </select>
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <select class="form-select border-0 py-3">
-                                <option selected>Nombre de chambres</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5+">5+</option>
-                             </select>
-                        </div>
-
-
 
                         <div class="col-md-4">
-                            <input type="text" class="form-control border-0 py-3" placeholder="Superficie Min(m²)">
+                            <button class="btn custom-but dropdown-toggle" type="button" id="dropdownMenuButton3"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Nombre de Chambres
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, undefined, '1')">1</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, undefined, '2')">2</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, undefined, '3')">3</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, undefined, '4')">4</a></li>
+                                <li><a class="dropdown-item" href="#"
+                                        @click.prevent="setFilter(undefined, undefined, '5+')">5+</a></li>
+                            </ul>
                         </div>
+
+                        <div class="col-md-4">
+                            <input type="text" class="form-control border-0 py-3 custom-input"
+                                placeholder="Budget Max(DT)" v-model="maxBudget">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control border-0 py-3 custom-input"
+                                placeholder="Superficie Max(m²)" v-model="maxArea">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control border-0 py-3 custom-input"
+                                placeholder="Superficie Min(m²)" v-model="minArea">
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <button class="btn btn-info border-0 w-100 py-3">Search</button>
+
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 custom-padding x">
+        <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+            <h1 class="mb-3">Annonces à Louer </h1>
+        </div>
+    </div>
+    <div class="row g-4 custom-padding">
+        <div v-for="annonce in filteredAnnonces" :key="annonce.id" class="col-lg-4 col-md-6">
+            <div class="property-item rounded overflow-hidden h-100">
+                <div class="position-relative overflow-hidden">
+                    <a :href="annonce.link || '#'">
+                        <img :src="'http://localhost:3000/' + annonce.image || '../Assets/img/default-property.jpg'"
+                            class="img-fluid" alt="Image de l'annonce">
+                    </a>
+                    <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                        {{ annonce.status }}</div>
+                    <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                        {{ annonce.type }}</div>
+                </div>
+                <div class="p-4 pb-0">
+                    <h5 class="text-primary mb-1">{{ annonce.title }}</h5>
+                    <h5 class="text-primary mb-3">{{ annonce.price }} DT</h5>
+                    <small class="flex-fill text-center"><i class="fa fa-ruler-combined text-primary me-2"></i>{{
+                        annonce.area }} m²</small>
+                    <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
+                    <p>Déscription: {{ annonce.description }}</p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center px-4 pb-3">
+                    <button type="button" class="btn btn-warning btn-sm">Voir Annonce</button>
+                    <i class="bi bi-heart heart-icon"></i>
                 </div>
             </div>
         </div>
+
+
+
+        <div class="paging">
+            <a href="#" class="disabled">Pev</a>
+            <div class="page-square current">1</div>
+            <div class="page-square"> <a href="/page/2">2</a></div>
+            <div class="page-square"><a href="/page/3">3</a></div>
+            <div class="page-square"><a href="/page/4">4</a></div>
+            <div class="page-square"><a href="/page/5">5</a></div>
+            <a href="/page/2">Next</a>
+            <span class="paging-info">Page 1 of X</span>
+        </div>
+
     </div>
 
 
 
 
-    <div class="container-xxl py-5">
-            <div class="container">
-                <div class="row g-0 gx-5 align-items-end">
-                    <div class="col-lg-6">
-                        <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
-                            <h1 class="mb-3">Annonces</h1>
-                           
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
-                        <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-                            <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary " data-bs-toggle="pill" href="#tab-1">Tous</a>
-                            </li>
-                            <li class="nav-item me-2">
-                                <a class="btn btn-outline-warning active" data-bs-toggle="pill" href="#tab-2">À Louer</a>
-                            </li>
-                            <li class="nav-item me-0">
-                                <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">À Vendre</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
-
-
-                <div class="tab-content">
-                    <div id="tab-1" class="tab-pane fade show p-0 active">
-                        <div class="row g-4">
-                            <div class="col-lg-4 col-md-6">
-                                 <div class="property-item rounded overflow-hidden h-100">
-                                     <div class="position-relative overflow-hidden">
-                                         <a href=""><img class="img-fluid" src="../Assets/img/property-1.jpg" alt=""></a>
-                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                         <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
-                                     </div>
-                                <div class="p-4 pb-0">
-                                     <h5 class="text-primary mb-3">299 000 DT</h5>
-                                     <small class="flex-fill text-center"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                     <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                               </div>
-                              <div class="d-flex justify-content-between align-items-center px-4 pb-3">
-                                   <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                   <i class="bi bi-heart heart-icon"></i> <!-- Icône de cœur -->
-                             </div>
-                         </div>
-     </div>
-
-
-
-
-
-                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                                <div class="property-item rounded overflow-hidden h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center px-4 pb-3">
-                                          <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                          <i class="bi bi-heart heart-icon"></i> <!-- Icône de cœur -->
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                <div class="property-item rounded overflow-hidden h-100">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/terr.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Terrain</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center px-4 pb-3">
-                                          <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                          <i class="bi bi-heart heart-icon"></i> <!-- Icône de cœur -->
-                                    </div>
-                                   <br>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center px-4 pb-3">
-                                        <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                        <i class="bi bi-heart heart-icon"></i> <!-- Icône de cœur -->
-                                     </div>
-                                    <br>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center px-4 pb-3">
-                                        <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                         <i class="bi bi-heart heart-icon"></i> <!-- Icône de cœur -->
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center px-4 pb-3">
-                                         <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                         <i class="bi bi-heart heart-icon"></i> <!-- Icône de cœur -->
-                                     </div>
-                                    <br>
-                                </div>
-                            </div>
-
-
-
-                            <div class="paging">
-                                  <a href="#" class="disabled">Previous</a>
-                                 <div class="page-square current">1</div>
-                                 <div class="page-square"> <a href="/page/2">2</a></div>
-                                 <div class="page-square"><a href="/page/3">3</a></div>
-                                 <div class="page-square"><a href="/page/4">4</a></div>
-                                 <div class="page-square"><a href="/page/5">5</a></div>       
-                                 <a href="/page/2">Next</a>
-                                 <span class="paging-info">Page 1 of 51</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div id="tab-2" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-12 text-center">
-                                <a class="btn btn-primary py-3 px-5" href="">Browse More Property</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-3" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="property-item rounded overflow-hidden">
-                                    <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="../Assets/img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">À Louer</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
-                                    </div>
-                                    <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">299 000 DT</h5>
-                                        <small class="flex-fill text-center "><i class="fa fa-ruler-combined text-primary me-2"></i>1000 m²</small>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>Sfax 4.1 Km du centre</p>
-                                    </div>
-                                    <div>
-                                    <button type="button" class="btn btn-warning">Voir Annonce</button>
-                                
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                            <div class="col-12 text-center">
-                                <a class="btn btn-warning py-3 px-5" href="">Browse More Property</a> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Property List End -->
-   
 </template>
 
 
 <script>
-import MyNavbar from '@/components/MyNavbar.vue'
-export default {
-    components:{
-    MyNavbar,
-   
-  },
-   mounted() {
-        // Sélectionnez chaque icône du cœur individuellement
-        const heartIcons = document.querySelectorAll('.heart-icon');
+import MyNavbar from '@/components/MyNavbar.vue';
+import axios from 'axios';  // Assurez-vous d'avoir installé axios
 
-        // Parcourez chaque icône du cœur et ajoutez un écouteur d'événements
+export default {
+    components: {
+        MyNavbar,
+    },
+    data() {
+        return {
+            annonces: [], // Stocke les annonces récupérées
+            selectedType: '', // Variable to hold the selected property type
+            selectedCity: '',  // Variable to hold the selected city
+            selectedRooms: '',  // Add this for room number filter
+            maxBudget: '', // Filter for maximum budget
+            maxArea: '', // New data property for maximum area
+            minArea: '', // New data property for minimum area
+        };
+    },
+    computed: {
+        filteredAnnonces() {
+            return this.annonces.filter(annonce => {
+                const matchesType = !this.selectedType || annonce.type === this.selectedType;
+                const matchesCity = !this.selectedCity || annonce.city === this.selectedCity;
+                const matchesRooms = !this.selectedRooms || annonce.rooms.toString() === this.selectedRooms;
+                const withinBudget = !this.maxBudget || annonce.price <= parseInt(this.maxBudget);
+                const withinMaxArea = !this.maxArea || annonce.area <= parseInt(this.maxArea);
+                const aboveMinArea = !this.minArea || annonce.area >= parseInt(this.minArea);
+                return matchesType && matchesCity && matchesRooms && withinBudget && withinMaxArea && aboveMinArea && annonce.status === 'Louer';
+            });
+        }
+    },
+
+    methods: {
+        async fetchAnnonces() {
+            try {
+                const response = await axios.get('http://localhost:3000/annonces');
+                this.annonces = response.data;
+                console.log('Data Loaded:', this.annonces); // Debugging output
+            } catch (error) {
+                console.error('Error loading annonces:', error);
+            }
+        },
+        setFilter(type, city, rooms) {
+            if (type !== undefined) this.selectedType = type;
+            if (city !== undefined) this.selectedCity = city;
+            if (rooms !== undefined) this.selectedRooms = rooms;
+            console.log('Current Filters:', this.selectedType, this.selectedCity, this.selectedRooms);
+        }
+    },
+    mounted() {
+      
+        this.fetchAnnonces();  // Appel pour charger les annonces
+        const heartIcons = document.querySelectorAll('.heart-icon');
         heartIcons.forEach((heartIcon) => {
             heartIcon.addEventListener('click', () => {
                 heartIcon.classList.toggle('active');
             });
         });
-        window.addEventListener('scroll', () => {
-      if (window.scrollY > 45) {
-        document.querySelector('.nav-bar').classList.add('sticky-top');
-      } else {
-        document.querySelector('.nav-bar').classList.remove('sticky-top');
-      }
-    });
-    },
- 
+      
+    }
+
+
 };
 </script>
 
 <style scoped>
+.custom-input,
+.custom-but {
+    width: 100%;
+    /* Assure que tous les contrôles prennent toute la largeur de leur conteneur */
+    height: 50px;
+    /* Hauteur uniforme */
+    padding: 15 15px;
+    /* Padding intérieur pour le texte */
+    line-height: 50px;
+    /* Alignement vertical du texte */
+    border-radius: 20px;
+    /* Bordures moins arrondies pour l'esthétique */
+}
+
+.dropdown-menu {
+    width: 20%;
+    /* Assure que le menu déroulant a la même largeur que le bouton */
+    border-radius: 15px;
+    /* Bordures moins arrondies pour les menus déroulants */
+    color: #515151;
+}
+
+/* Styles spécifiques pour les boutons pour correspondre aux champs de texte */
+.custom-but {
+    background-color: #ffffff;
+    /* Couleur de fond */
+    color: #515151;
+    /* Couleur du texte */
+    border: 1px solid ffffff;
+    /* Bordure légère */
+    text-align: left;
+    /* Alignement du texte à gauche */
+}
+
+.custom-but:hover {
+    background-color: #ffffff;
+    /* Darker shade for hover effect */
+    border-color: #ffffff;
+    /* Even darker border on hover */
+    color: #515151;
+    /* White text for better contrast */
+}
+
+
+.custom-padding {
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
+.custom-padding.x {
+    padding-top: 60px;
+}
+
+.btn-warning {
+    background-color: #FFC107;
+    /* Custom blue color */
+    border: 1px solid #FFC107;
+    /* Border color */
+    color: #ffffff;
+    /* White text for better contrast */
+}
+
+.btn-warning:hover {
+    background-color: #ffffff;
+    /* Darker shade for hover effect */
+    border-color: #FFC107;
+    /* Even darker border on hover */
+    color: #FFC107;
+    /* White text for better contrast */
+}
+
+.custom-input {
+    border-radius: 20px;
+
+}
+
+.custom-button {
+    padding: 10px 100px;
+    /* Espacement intérieur */
+    background-color: #18a7fad2;
+    /* Couleur de fond */
+    color: #fff;
+    /* Couleur du texte */
+    border: none;
+    /* Pas de bordure */
+    border-radius: 10px;
+    /* Bordure arrondie */
+    cursor: pointer;
+    /* Curseur pointer */
+}
+
 /* Style de base pour l'icône de cœur */
 .heart-icon {
     font-size: 24px;
@@ -550,7 +337,8 @@ export default {
 
 /* Style lorsque l'annonce est ajoutée aux favoris */
 .heart-icon.active {
-    color: #fff700; /* Couleur rouge pour indiquer que l'annonce est dans les favoris */
+    color: rgb(241, 4, 4);
+    /* Couleur rouge pour indiquer que l'annonce est dans les favoris */
 }
 
 .paging {
@@ -575,10 +363,13 @@ export default {
 }
 
 .page-square {
-    width: 30px; /* Largeur du carré */
-    height: 30px; /* Hauteur du carré */
+    width: 30px;
+    /* Largeur du carré */
+    height: 30px;
+    /* Hauteur du carré */
     text-align: center;
-    line-height: 30px; /* Centrer le texte verticalement */
+    line-height: 30px;
+    /* Centrer le texte verticalement */
     margin: 0 3px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -602,7 +393,4 @@ export default {
     margin-left: 10px;
     color: #777;
 }
-
-
-
 </style>

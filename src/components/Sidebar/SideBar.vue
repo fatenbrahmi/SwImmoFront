@@ -1,28 +1,29 @@
 <template>
-    <div class="sidebar" :style="{ width: sidebarWidth }">
-       <h1>
-          <span v-if="collapsed">
-             <div></div>
-             <div></div>
-          </span>
- 
-       </h1>
- 
-       <SidebarLink to="/AdminDashboard" icon="fas fa-columns">Dashboard</SidebarLink>
-       <br />
-       <SidebarLink to="/AdminUtilisateurs" icon="fas fa-users">Utilisateurs</SidebarLink>
-       <br />
-       <SidebarLink to="/AdminAnnonces" icon="fas fa-image">Annonces</SidebarLink>
-       <br />
-       <SidebarLink to="/AdminAgents" icon="fas fa-user-tie">Agences</SidebarLink>
- 
- 
- 
-       <span class="collapse-icon" :class="{ 'rotate-180': collapsed }" @click="toggleSidebar">
-          <i class="fas fa-angle-double-left" />
-       </span>
-    </div>
- </template>
+   <div class="sidebar" :style="{ width: sidebarWidth }">
+      <h1>
+         <span v-if="collapsed">
+            <div></div>
+            <div></div>
+         </span>
+
+      </h1>
+
+      <SidebarLink to="/AdminDashboard" icon="fas fa-columns">Dashboard</SidebarLink>
+      <br />
+      <SidebarLink to="/AdminUtilisateurs" icon="fas fa-users">Utilisateurs</SidebarLink>
+      <br />
+      <SidebarLink to="/AdminAnnonces" icon="fas fa-image">Annonces</SidebarLink>
+      <br />
+      <SidebarLink to="/AdminAgents" icon="fas fa-user-tie">Agences</SidebarLink>
+      <br><br><br><br><br><br><br><br><br>
+      <SidebarLink to="/Déconnexion" icon="fas fa-sign-out-alt">Déconnexion</SidebarLink>
+
+
+      <span class="collapse-icon" :class="{ 'rotate-180': collapsed }" @click="toggleSidebar">
+         <i class="fas fa-angle-double-left" />
+      </span>
+   </div>
+</template>
  
  <script>
  import SidebarLink from '@/components/Sidebar/SidebarLink.vue'
@@ -42,8 +43,8 @@
  <style>
  :root {
     --sidebar-bg-color: #2d6078; /* Light Teal Pastel */
-    --sidebar-item-hover: #386e87; /* Hover color, slightly darker pastel teal */
-    --sidebar-item-active: #709db6; /* Active color, darker blue pastel */
+    --sidebar-item-hover: #508198; /* Hover color, slightly darker pastel teal */
+    --sidebar-item-active: #6b97af; /* Active color, darker blue pastel */
  }
  
  </style>

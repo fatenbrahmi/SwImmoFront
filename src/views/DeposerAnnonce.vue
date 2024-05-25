@@ -179,13 +179,7 @@ export default {
         heartIcon.classList.toggle('active');
       });
     });
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 45) {
-        document.querySelector('.nav-bar').classList.add('sticky-top');
-      } else {
-        document.querySelector('.nav-bar').classList.remove('sticky-top');
-      }
-    });
+  
   },
   methods: {
     async submitForm() {

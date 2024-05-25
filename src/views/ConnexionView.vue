@@ -1,19 +1,21 @@
 <template>
   <div>
-    <MyNavbar/>
+    <MyNavbar />
     <div class="background-image">
       <div class="cont_login">
         <div class="cont_ba_opcitiy">
-          <h2>LOGIN</h2>
+          <h2>SE CONNECTER</h2>
           <p>Bienvenue ! Veuillez vous connecter avec SWIMMO.</p>
           <br>
           <form @submit.prevent="login">
             <div class="mb-3">
-            
-              <input type="email" class="custom-input" id="email" v-model="loginData.email" placeholder="Email" required>
+
+              <input type="email" class="custom-input" id="email" v-model="loginData.email" placeholder="Email"
+                required>
             </div>
             <div class="mb-3">
-              <input type="password" class="custom-input" id="password" v-model="loginData.motDePasse" placeholder="Mot de passe" required>
+              <input type="password" class="custom-input" id="password" v-model="loginData.motDePasse"
+                placeholder="Mot de passe" required>
               <a href="#exampleModalToggle" class="forgot-password" data-bs-toggle="modal">Mot de passe oublié ?</a>
             </div>
             <button type="submit" class="btn_login">Connexion</button>
@@ -22,7 +24,7 @@
       </div>
       <div class="col_md_sign_up">
         <div class="cont_ba_opcitiy">
-          <h2>SIGN UP</h2>
+          <h2>S’INSCRIRE</h2>
           <p>Vous n'avez pas encore de compte ? Créez-le en quelques secondes pour bénéficier.</p>
           <br>
           <router-link to="/signup" class="btn_sign_up">Créer mon compte</router-link>
@@ -30,24 +32,28 @@
       </div>
     </div>
 
-  <!-- Modal for Password Recovery -->
-  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <!-- Modal for Password Recovery -->
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+      tabindex="-1">
       <div class="modal-dialog modal-dialog-centered custom-modal-dialog">
         <div class="modal-content custom-modal-content">
           <div class="modal-header custom-modal-header">
-            <h5 class="modal-title custom-modal-title" id="exampleModalToggleLabel">Renseignez votre adresse e-mail et nous vous enverrons tout de suite la marche à suivre.</h5>
-            <button type="button" class="btn-close custom-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title custom-modal-title" id="exampleModalToggleLabel">Renseignez votre adresse e-mail et
+              nous vous enverrons tout de suite la marche à suivre.</h5>
+            <button type="button" class="btn-close custom-modal-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
             <br><br>
           </div>
           <br><br><br>
           <div class="modal-body">
             <div class="mb-3">
-             
-              <input type="email" class="custom-input" id="email" placeholder="Email" required>
+
+              <input type="email" class="custom-input" v-model="recoveryEmail" placeholder="Email" required>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-warning custom-modal-button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">RÉNITIALISER LE MOT DE PASSE</button>
+            <button class="btn btn-warning custom-modal-button" @click="recoverPassword"
+              data-bs-dismiss="modal">Réinitialiser votre mot de passe</button>
           </div>
           <br><br>
         </div>
@@ -103,26 +109,21 @@ export default {
         }
       }
     },
-    // ce partie manque liaison avec le backend 
+    
     async recoverPassword() {
       try {
-        // Send a POST request to your backend API for password recovery
-        const response = await axios.post('http://localhost:3000/api/recover-password', {
+        await axios.post('http://localhost:3000/auth/forgot-password', {
           email: this.recoveryEmail
         });
-
-        // Handle successful response (e.g., display success message)
-        console.log(response.data);
         alert("Un email de récupération de mot de passe a été envoyé à votre adresse email.");
-
-        // Clear the recovery email field after successful submission
-        this.recoveryEmail = '';
+        this.recoveryEmail = ''; // Clear the email field after sending
       } catch (error) {
-        // Handle errors (e.g., invalid email, unable to send email)
         console.error(error);
         alert("Une erreur s'est produite lors de la récupération du mot de passe.");
       }
-    },
+    }
+
+,
     openModal() {
     this.showRecoveryModal = true; // Set to true to show the modal
   },
@@ -150,11 +151,11 @@ export default {
 }
 
 .custom-modal-content {
-  background-color: #05465cb5; /* Couleur de fond de la modal */
+  background-color: rgba(60, 104, 127, 0.55); /* Couleur de fond de la modal */
 }
 
 .custom-modal-header {
-  background-color: #05465cb5; /* Couleur de fond de l'en-tête de la modal */
+  background-color: rgba(60, 104, 127, 0.55); /* Couleur de fond de l'en-tête de la modal */
 }
 
 .custom-modal-title {
@@ -172,6 +173,14 @@ export default {
   font-size: 1rem; /* Taille de texte pour le bouton de la modal */
   padding: 10px 20px;
   margin-top: 20px; /* Rembourrage pour le bouton de la modal */
+  background-color:#f9d211 ;
+}
+.custom-modal-button:hover {
+  background-color: #ffffff;
+  /* Darker shade for hover effect */
+  border-color: #ffffff;
+  color: rgba(24, 28, 30, 0.55);
+  /* White text for better contrast */
 }
 
 /* Styles personnalisés pour les champs d'email */
@@ -185,17 +194,17 @@ export default {
   border: none;
   padding: 10px;
   width: 200px;
-  border-radius: 3px;
-  box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
-  color: #fff;
+  border-radius: 10px;
+  box-shadow: 1px 5px 20px -5px rgba(60, 60, 60, 0.4);
+  color: #ffffff;
   margin-top: 10px;
   cursor: pointer;
   text-decoration: none;
   
 }
 .forgot-password {
-  font-size: 14px; /* Taille de la police */
-  color: #040404; /* Couleur du texte */
+  font-size: 15px; /* Taille de la police */
+  color: #ffffff; /* Couleur du texte */
   text-decoration: underline; /* Soulignement du texte */
   display: block; /* Affichage en bloc pour occuper toute la largeur disponible */
   margin-top: 5px; /* Marge supérieure pour séparer du champ de saisie du mot de passe */
@@ -204,7 +213,7 @@ export default {
   width: 500px; /* Largeur personnalisée */
   height: 40px; /* Hauteur personnalisée */
   background-color: #f0f0f0; 
-  border-radius: 20px; /* Rayon de bordure pour arrondir les coins des deux côtés */
+  border-radius: 10px; /* Rayon de bordure pour arrondir les coins des deux côtés */
 }
 * {
   margin: 0px auto;
@@ -264,7 +273,7 @@ export default {
 .col_md_login > h2 {
   font-weight: 400;
   margin-top: 70px;
-  color: #757575;
+  color: #37474f;
 }
 
 .col_md_login > p {
@@ -279,9 +288,9 @@ export default {
   border: none;
   padding: 10px;
   width: 200px;
-  border-radius: 3px;
-  box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
-  color: #fff;
+  border-radius: 10px;
+  box-shadow: 1px 5px 20px -5px rgba(57, 57, 57, 0.4);
+  color: #ffffff;
   margin-top: 10px;
   cursor: pointer;
 }
@@ -309,7 +318,7 @@ background text
   position: relative;
   background-color: rgba(99, 141, 162, 0.55);
   width: 80%;
-  border-radius: 3px;
+  border-radius: 10px;
   margin-top: 60px;
   padding: 15px 0px;
 }

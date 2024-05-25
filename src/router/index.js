@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 import profilView from '../views/profilView.vue' 
@@ -6,7 +6,6 @@ import profilView from '../views/profilView.vue'
 import AcheterView from '@/views/AcheterView.vue' 
 import LouerView from '@/views/LouerView.vue' 
 import ContactView from '@/views/ContactView.vue'
-import resetpwdView from '@/views/resetpwdView.vue'
 import AnnonceView from '@/views/AnnonceView.vue'
 import DeposerAnnonce from '@/views/DeposerAnnonce.vue'
 
@@ -18,9 +17,14 @@ import AnnonceAgent from '@/views/AnnonceAgent.vue'
 import EventsView from '@/views/EventsView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 
+//Admin interfaces
 import AdminAnnonces from '@/views/AdminAnnonces.vue'
 import AdminDashboard from '@/views/AdminDashboard.vue'
 import AdminUtilisateurs from '@/views/AdminUtilisateurs.vue'
+import AdminProfile from '@/views/AdminProfile';
+import ResetPassword from '@/views/ResetPassword'
+
+
 const routes = [
   {
     path: '/',
@@ -35,27 +39,27 @@ const routes = [
   {
     path: '/Annonces',
     name: 'AnnonceView',
-    component:AnnonceView
+    component: AnnonceView
   },
   {
     path: '/SignUp',
     name: 'SignUpView',
-    component:SignUpView
+    component: SignUpView
   },
   {
     path: '/DashboardAgent',
     name: 'DashboardAgent',
-    component:DashboardAgent
+    component: DashboardAgent
   },
   {
     path: '/Events',
     name: 'EventsView',
-    component:EventsView
+    component: EventsView
   },
   {
     path: '/AnnonceAgent',
     name: 'AnnonceAgent',
-    component:AnnonceAgent
+    component: AnnonceAgent
   },
 
 
@@ -64,13 +68,6 @@ const routes = [
     path: '/Connexion',
     name: 'ConnexionView',
     component: ConnexionView
-  },
-  
-  
-  {
-    path: '/resetpwd',
-    name: 'resetpwdView',
-    component: resetpwdView
   },
   {
     path: '/Acheter', // Définissez le chemin de la route
@@ -89,16 +86,16 @@ const routes = [
     component: ContactView // Associez le chemin à votre composant AcheterView
   },
   {
-    path: '/DeposerAnnonce', 
-    name: 'DeposerAnnoce', 
-    component: DeposerAnnonce 
+    path: '/DeposerAnnonce',
+    name: 'DeposerAnnoce',
+    component: DeposerAnnonce
   },
   {
-    path: '/Agent', 
-    name: 'AgentView', 
+    path: '/Agent',
+    name: 'AgentView',
     component: AgentView
   },
-// coté Super admin
+  // coté Super admin
   {
     path: '/AdminAnnonces',
     name: 'AdminAnnonces',
@@ -109,18 +106,26 @@ const routes = [
     name: 'AdminDashboard',
     component: AdminDashboard
   },
-   {
+  {
     path: '/AdminUtilisateurs',
     name: 'AdminUtilisateurs',
     component: AdminUtilisateurs
   },
-
-
-]
+  {
+    path: '/AdminProfile',
+    name: 'AdminProfile',
+    component: AdminProfile
+  },
+ {
+    path: '/reset-password/:token',
+    name: 'ResetPassword',
+    component: ResetPassword
+  },
+];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;

@@ -2,17 +2,19 @@
 import { CChartLine } from '@coreui/vue-chartjs'
 
 const data = {
-  labels: ['months', 'a', 'b', 'c', 'd'],
+  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
   datasets: [
     {
       label: 'Data One',
-      backgroundColor: 'rgb(228,102,81,0.9)',
-      data: [30, 39, 10, 50, 30, 70, 35],
+      backgroundColor: 'rgba(228,102,81,0.9)',
+      borderColor: 'rgba(228,102,81,1)',
+      data: [30, 39, 10, 50, 30, 70],
     },
     {
       label: 'Data Two',
-      backgroundColor: 'rgb(0,216,255,0.9)',
-      data: [39, 80, 40, 35, 40, 20, 45],
+      backgroundColor: 'rgba(0,216,255,0.9)',
+      borderColor: 'rgba(0,216,255,1)',
+      data: [39, 80, 40, 35, 40, 20],
     },
   ],
 }
@@ -21,5 +23,3 @@ const data = {
 <template>
   <CChartLine :data="data" />
 </template>
-
-  
