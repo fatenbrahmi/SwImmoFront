@@ -97,6 +97,18 @@ export default {
         // Reset form fields after successful login
         this.loginData.email = ''
         this.loginData.motDePasse = ''
+        localStorage.setItem('userData', JSON.stringify(response.data.user))
+        localStorage.setItem('token', response.data.token)
+        // Check if the user is a superAdmin
+        if (response.data.isSuperAdmin) {
+          // Redirect to AdminDashboard view
+          this.$router.push({ name: 'AdminDashboard' });
+        } else {
+          // Redirect to the default view after login
+          // Replace 'Home' with the desired default view
+          this.$router.push({ name: 'Home' });
+        }
+
       } catch (error) {
         // Error handling
         console.error(error)

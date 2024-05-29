@@ -1,95 +1,96 @@
 <template>
-<div class="container">
+  <div class="container">
     <div class="row gutters">
-    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
-            <div class="card-body">
-                <div class="account-settings">
-                    <div class="user-profile">
-                       
-                        <div class="user-avatar position-relative">
+          <div class="card-body">
+            <div class="account-settings">
+              <div class="user-profile">
 
-    <input type="file" id="profile-image" accept="image/*" style="display: none;">
-    <label for="profile-image">
-      
-        <i class="bi bi-pencil-square position-absolute" style="right: 5px; bottom: 5px;"></i>
-        
-        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" id="profile-preview" class="img-fluid">
-       
-    </label>
-</div>
-                        <!-- MODIFABLE -->
-                        <h5 class="user-name" contenteditable="true">Yuki Hayashi</h5>
-                        <!-- Champ d'édition pour l'e-mail -->
-                        <h6 class="user-email" contenteditable="true">yuki@Maxwell.com</h6>
-                    </div>
-                    
+                <div class="user-avatar position-relative">
+
+                  <input type="file" id="profile-image" accept="image/*" style="display: none;">
+                  <label for="profile-image">
+
+                    <i class="bi bi-pencil-square position-absolute" style="right: 5px; bottom: 5px;"></i>
+
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"
+                      id="profile-preview" class="img-fluid">
+
+                  </label>
                 </div>
+                <!-- MODIFABLE -->
+                <h5 class="user-name" contenteditable="true">Nom et prénom utilisateur</h5>
+                <!-- Champ d'édition pour l'e-mail -->
+                <h6 class="user-email" contenteditable="true">utilisateur@gmail.com</h6>
+              </div>
+
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
 
-<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-<div class="card h-100">
-	<div class="card-body">
-		<div class="row gutters">
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h6 class="mb-2 text-warning">Personal Details</h6>
-			</div>
-			<div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nom" required/>
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h2 class="mb-2 text-warning">Informations personnelles</h2>
+                <br>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nom" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Prénom" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="tel" class="form-control" placeholder="Téléphone" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select class="form-select" placeholder="Profil" required>
+                      <option value="internaute">Client</option>
+                      <option value="délégué">Délégué</option>
+                      <option value="agent">Agent immobilier</option>
+                      <option value="adminAgence">Admin Agence</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <br><br><br>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="text-right">
+                <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
+                <!-- Ajoutez une classe "btn-margin" pour définir la marge -->
+                <button type="button" id="submit" name="submit" class="btn btn-warning btn-margin">Update</button>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="text" class="form-control"  placeholder="Prénom" required/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="email" class="form-control"  placeholder="Email" required/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="tel" class="form-control"  placeholder="Téléphone" required/>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <select class="form-select"  placeholder="Profil" required>
-                  <option selected disabled>Choisissez votre profil*</option>
-                  <option value="agent">Agent immobilier</option>
-                  <option value="acquereur">Acquéreur</option>
-                  <option value="locataire">Locataire</option>
-                  <option value="proprietaire">Propriétaire</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="password" class="form-control"   placeholder="Password" required/>
-              </div>
-            </div>
-            </div>
-			
-		</div>
-		<br><br><br>
-		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <div class="text-right">
-        <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
-        <!-- Ajoutez une classe "btn-margin" pour définir la marge -->
-        <button type="button" id="submit" name="submit" class="btn btn-warning btn-margin">Update</button>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-	</div>
-</div>
-</div>
-</div>
-</div>
+  </div>
 
 </template>
 <script>

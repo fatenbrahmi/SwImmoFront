@@ -199,7 +199,13 @@ export default {
    },
    methods: {
       fetchAnnonces() {
-         axios.get('http://localhost:3000/annonces')
+         let token = localStorage.getItem('token')
+         let config = {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         }
+         axios.get('http://localhost:3000/annonces', config)
             .then(response => {
                this.annonces = response.data;
             })

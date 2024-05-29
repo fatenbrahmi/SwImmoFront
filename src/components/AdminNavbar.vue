@@ -41,30 +41,32 @@
    </div>
 </template>
 
-<script>
-import axios from 'axios';  // Import axios directly
 
-export default {
-   name: 'AdminNavbar',
+<script>
+   import axios from 'axios';  // Import axios directly
+   import router from '../router';  // Ensure router is imported if not globally available
+
+   export default {
+      name: 'AdminNavbar',
    methods: {
       logout() {
-         console.log('Logout method called');
-         axios.post('http://localhost:3000/auth/logout')
+      console.log('Logout method called');
+   axios.post('http://localhost:3000/auth/logout')
             .then(response => {
-               console.log('Logout successful:', response);
-               localStorage.removeItem('token');
-               this.$router.push('/Connexion');
+      console.log('Logout successful:', response.data.message);
+   localStorage.removeItem('token');  // Ensure this key matches what you set at login
+   router.push('/Connexion');  // Use router.push if this.$router isn't working as expected
             })
             .catch(error => {
-               console.error('Erreur lors de la déconnexion:', error);
+      console.error('Erreur lors de la déconnexion:', error);
+   alert('Failed to log out, please try again.');  // Consider user feedback for failure
             });
       }
-
-
-
    }
 }
 </script>
+
+
 
 
 

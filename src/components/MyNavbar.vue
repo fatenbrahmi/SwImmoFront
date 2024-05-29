@@ -33,8 +33,12 @@
                   Connexion</router-link></li>
               <li><router-link to="/Annonces" class="dropdown-item"><i class="fas fa-newspaper"></i> Mes
                   Annonces</router-link></li>
-              <li><router-link to="/deconnexion" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Se
-                  Déconnecter</router-link></li>
+              <li>
+                <a class="dropdown-item" @click="logout">
+                  <i class="fas fa-sign-out-alt"></i> Se Déconnecter
+                </a>
+              </li>
+
             </ul>
           </li>
         </div>
@@ -45,12 +49,27 @@
 
 
 <script>
+import router from '../router';  // Ensure you import your router
+
 export default {
   name: 'MyNavbar',
-  
- 
+
+  methods: {
+    async logout() {
+      // Clear all relevant local storage items
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userData'); // Assuming you store user data here based on your router code
+
+      // Print to console for debugging (you can remove this later)
+      console.log("User logged out");
+
+      // Redirect user to the login page
+      await router.push({ name: 'ConnexionView' });
+    }
+  }
 }
 </script>
+
 <style scoped>
 body {
   padding-top: 80px;

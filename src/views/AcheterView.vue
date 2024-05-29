@@ -206,12 +206,23 @@ export default {
 
     methods: {
         async fetchAnnonces() {
+            // Retrieve the token from localStorage
+            let token = localStorage.getItem('token');
+
+            // Configure the headers for the request
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+
             try {
-                const response = await axios.get('http://localhost:3000/annonces');
-                this.annonces = response.data;
-                console.log('Data Loaded:', this.annonces); // Debugging output
+                // Make the request using the config with Authorization headers
+                const response = await axios.get('http://localhost:3000/annonces', config);
+                this.annonces = response.data; // Set the fetched data to your annonces data property
+                console.log('Data Loaded:', this.annonces); // Debugging output to check data
             } catch (error) {
-                console.error('Error loading annonces:', error);
+                console.error('Error loading annonces:', error); // Log any error that occurs during the fetch operation
             }
         },
         setFilter(type, city, rooms) {

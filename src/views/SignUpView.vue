@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MyNavbar/>
+    <MyNavbar />
     <div class="background-image">
       <div class="col_md_sign_up">
         <div class="cont_ba_opcitiy">
@@ -10,7 +10,7 @@
               <input type="text" class="custom-input" v-model="userData.nom" placeholder="Nom" required>
             </div>
             <div class="mb-2">
-              <input type="text"  class="custom-input" v-model="userData.prenom" placeholder="Prénom" required>
+              <input type="text" class="custom-input" v-model="userData.prenom" placeholder="Prénom" required>
             </div>
             <div class="mb-2">
               <input type="email" class="custom-input" v-model="userData.email" placeholder="Email" required>
@@ -19,8 +19,8 @@
               <input type="text" class="custom-input" v-model="userData.telephone" placeholder="Téléphone" required>
             </div>
             <div class="mb-2">
-              <input type="password" class="custom-input" v-model="userData.motDePasse" placeholder="Mot de passe" required>
-              
+              <input type="password" class="custom-input" v-model="userData.motDePasse" placeholder="Mot de passe"
+                required>
             </div>
             <div class="mb-2">
               <select v-model="userData.Profil" required>
@@ -32,18 +32,15 @@
               </select>
             </div>
             <div class="mb-2">
-              <input type="file" class="custom-input"  @change="onFileChange" placeholder="Image de profil" required>
+              <input type="file" class="custom-input" @change="onFileChange" placeholder="Image de profil" required>
             </div>
-            <button type="submit" class= "btn_sign_up">S'inscrire</button>
+            <button type="submit" class="btn_sign_up">S'inscrire</button>
           </form>
         </div>
       </div>
-      
     </div>
-    
   </div>
 </template>
-
 
 <script>
 import MyNavbar from '@/components/MyNavbar.vue'
@@ -70,8 +67,7 @@ export default {
     onFileChange(event) {
       this.userData.photoProfil = event.target.files[0];
     },
-    registerUser() {
-
+    async registerUser() {
       let myFormData = new FormData();
 
       myFormData.append('nom', this.userData.nom);
@@ -82,24 +78,23 @@ export default {
       myFormData.append('Profil', this.userData.Profil);
       myFormData.append('file', this.userData.photoProfil);
 
-      // Envoi de la requête POST pour l'inscription
-      axios.post('http://localhost:3000/auth/register', myFormData)
-        .then(response => {
-          console.log(response.data);
-          alert("Inscription réussie !");
-          // Réinitialiser les champs du formulaire après une inscription réussie
-          this.userData.nom = '';
-          this.userData.prenom = '';
-          this.userData.email = '';
-          this.userData.telephone = '';
-          this.userData.motDePasse = '';
-          this.userData.Profil = '';
-          this.userData.photoProfil = '';
-        })
-        .catch(error => {
-          console.error(error);
-          alert("Une erreur s'est produite lors de l'inscription : " + error.message);
-        });
+      try {
+        const response = await axios.post('http://localhost:3000/auth/register', myFormData);
+        console.log(response.data);
+        alert("Inscription réussie !");
+        // Réinitialiser les champs du formulaire après une inscription réussie
+        this.userData.nom = '';
+        this.userData.prenom = '';
+        this.userData.email = '';
+        this.userData.telephone = '';
+        this.userData.motDePasse = '';
+        this.userData.Profil = '';
+        this.userData.photoProfil = '';
+      } catch (error) {
+        console.error(error);
+        const errorMessage = error.response?.data?.message || error.message || "Une erreur s'est produite lors de l'inscription.";
+        alert("Une erreur s'est produite lors de l'inscription : " + errorMessage);
+      }
     }
   }
 };

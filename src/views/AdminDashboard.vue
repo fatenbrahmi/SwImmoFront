@@ -309,17 +309,29 @@ export default {
    },
    methods: {
       fetchTotalAnnonces() {
-         axios.get('http://localhost:3000/annonces/stats')
+         const token = localStorage.getItem('token');
+         const config = {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         };
+         axios.get('http://localhost:3000/annonces/stats', config)
             .then(response => {
                this.totalAnnonces = response.data.totalAnnonces;
-               alert("")
+               alert("Total annonces fetched successfully.");
             })
             .catch(error => {
                console.error('Error fetching total annonces:', error);
             });
       },
       fetchTotalAgencies() {
-         axios.get('http://localhost:3000/auth/agencies/count')
+         const token = localStorage.getItem('token');
+         const config = {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         };
+         axios.get('http://localhost:3000/auth/agencies/count', config)
             .then(response => {
                this.totalAgencies = response.data.totalAgencies;
             })
@@ -328,7 +340,13 @@ export default {
             });
       },
       fetchTotalUsers() {
-         axios.get('http://localhost:3000/auth/users/stats')
+         const token = localStorage.getItem('token');
+         const config = {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         };
+         axios.get('http://localhost:3000/auth/users/stats', config)
             .then(response => {
                this.totalUsers = response.data.totalUsers;
             })
@@ -337,8 +355,13 @@ export default {
             });
       },
       fetchPieChartData() {
-         console.log("fetchPieChartData called");
-         axios.get('http://localhost:3000/annonces/listingPercentages')
+         const token = localStorage.getItem('token');
+         const config = {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         };
+         axios.get('http://localhost:3000/annonces/listingPercentages', config)
             .then(response => {
                this.pieChartData = {
                   labels: response.data.map(item => item.type),
@@ -353,6 +376,7 @@ export default {
             });
       }
    }
+
 };
 </script>
 

@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -16,7 +17,8 @@
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@mdi/font": "^7.4.47",
     "animate.css": "^4.1.1",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
+    "axios-mock-adapter": "^1.22.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.2",
@@ -42,10 +44,15 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-unit-jest": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/vue3-jest": "^27.0.0-alpha.1",
+    "babel-jest": "^27.0.6",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "jest": "^27.0.5",
     "node-sass": "^9.0.0",
     "sass-loader": "^14.1.1",
     "terser": "^5.30.0",

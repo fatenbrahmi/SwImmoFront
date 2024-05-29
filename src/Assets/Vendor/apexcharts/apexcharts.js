@@ -19122,7 +19122,7 @@
           i: i,
           j: j,
           realIndex: realIndex,
-          groupIndex: !!groupIndex ? groupIndex : -1,
+          groupIndex: groupIndex ? groupIndex : -1,
           renderedPath: renderedPath,
           bcx: bcx,
           bcy: bcy,

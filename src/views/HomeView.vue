@@ -260,12 +260,28 @@ import axios from 'axios';
     },
     methods: {
         fetchAnnonces() {
-            axios.get('http://localhost:3000/annonces')
+            let token = localStorage.getItem('token');
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            axios.get('http://localhost:3000/annonces', config)
                 .then(response => {
-                    this.annonces = response.data;
+                    // Check if the response data is an array before assigning
+                    if (Array.isArray(response.data)) {
+                        this.annonces = response.data;
+                    } else {
+                        console.error('Received data is not an array:', response.data);
+                        this.annonces = []; // Reset to an empty array if data is not an array
+                    }
                 })
-                .catch(error => console.error("Error fetching annonces:", error));
+                .catch(error => {
+                    console.error("Error fetching annonces:", error);
+                    this.annonces = []; // Ensure annonces is reset on error
+                });
         },
+
         setFilter(filter) {
             this.currentFilter = filter;
         },

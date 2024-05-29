@@ -206,11 +206,19 @@ export default {
     },
     methods: {
         fetchAnnonces() {
-            axios.get('http://localhost:3000/annonces')
-                .then(response => {
+            //Retrieve the Authentication Token
+            let token = localStorage.getItem('token')
+            //Configure the HTTP Request Headers
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            axios.get('http://localhost:3000/annonces', config)    //Make an HTTP GET Request
+                .then(response => {     //handles the response from the server
                     this.annonces = response.data;
                 })
-                .catch(error => console.error("Error fetching annonces:", error));
+                .catch(error => console.error("Error fetching annonces:", error));    //Error Handling
         },
         submitAnnonce() {
             let formData = new FormData();
