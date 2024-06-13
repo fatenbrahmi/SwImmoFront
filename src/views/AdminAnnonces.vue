@@ -161,126 +161,177 @@
 import AdminNavbar from '@/components/AdminNavbar.vue';
 import SideBar from '@/components/Sidebar/SideBar.vue';
 import axios from 'axios';
+
 export default {
-   components: { AdminNavbar, SideBar },
-   data() {
-      return {
-         annonces: [],
-         annonce: {
-            title: '',
-            description: '',
-            price: null,
-            image: null,
-            area: null,
-            rooms: null,
-            city: '',
-            type: 'maison',
-            status: 'Vendre'
-         },
-         searchQuery: '',
-         currentFilter: 'Tous',
-         currentTypeFilter: '' // New filter for Type de bien
+  components: { AdminNavbar, SideBar },
+  data() {
+    return {
+      annonces: [],
+      annonce: {
+        title: '',
+        description: '',
+        price: null,
+        image: null,
+        area: null,
+        rooms: null,
+        city: '',
+        type: 'maison',
+        status: 'Vendre'
+      },
+      searchQuery: '',
+      currentFilter: 'Tous',
+      currentTypeFilter: ''
+    };
+  },
+  mounted() {
+    this.fetchAnnonces();
+  },
+  computed: {
+    filteredAnnonces() {
+      if (!Array.isArray(this.annonces)) {
+        console.error('annonces is not an array:', this.annonces);
+        return [];
+      }
+
+      let searchString = this.searchQuery.toLowerCase();
+      return this.annonces.filter(annonce => {
+        return (this.currentFilter === 'Tous' || annonce.status === this.currentFilter) &&
+          (this.currentTypeFilter === '' || annonce.type === this.currentTypeFilter) &&
+          (annonce.title.toLowerCase().includes(searchString) ||
+            annonce.description.toLowerCase().includes(searchString) ||
+            annonce.city.toLowerCase().includes(searchString));
+      });
+    }
+  },
+  methods: {
+    fetchAnnonces() {
+      let token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      let config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       };
-   },
-   mounted() {
-      this.fetchAnnonces();
-   },
-   computed: {
-      filteredAnnonces() {
-         let searchString = this.searchQuery.toLowerCase();
-         return this.annonces.filter(annonce => {
-            return (this.currentFilter === 'Tous' || annonce.status === this.currentFilter) &&
-               (this.currentTypeFilter === '' || annonce.type === this.currentTypeFilter) &&
-               (annonce.title.toLowerCase().includes(searchString) ||
-                  annonce.description.toLowerCase().includes(searchString) ||
-                  annonce.city.toLowerCase().includes(searchString));
-         });
+
+      axios.get('http://localhost:3000/annonces', config)
+        .then(response => {
+          if (Array.isArray(response.data)) {
+            this.annonces = response.data;
+          } else {
+            console.error('Fetched data is not an array:', response.data);
+            this.annonces = [];
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching annonces:', error);
+          this.annonces = [];
+        });
+    },
+    submitAnnonce() {
+      let formData = new FormData();
+      formData.append('title', this.annonce.title);
+      formData.append('description', this.annonce.description);
+      formData.append('price', this.annonce.price);
+      formData.append('area', this.annonce.area);
+      formData.append('rooms', this.annonce.rooms);
+      formData.append('city', this.annonce.city);
+      formData.append('type', this.annonce.type);
+      formData.append('status', this.annonce.status);
+      formData.append('image', this.annonce.image);
+
+      let token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found');
+        alert('Vous devez être connecté pour ajouter une annonce.');
+        return;
       }
-   },
-   methods: {
-      fetchAnnonces() {
-         let token = localStorage.getItem('token')
-         let config = {
-            headers: {
-               Authorization: `Bearer ${token}`
-            }
-         }
-         axios.get('http://localhost:3000/annonces', config)
-            .then(response => {
-               this.annonces = response.data;
-            })
-            .catch(error => console.error("Error fetching annonces:", error));
-      },
-      submitAnnonce() {
-         let formData = new FormData();
-         formData.append('title', this.annonce.title);
-         formData.append('description', this.annonce.description);
-         formData.append('price', this.annonce.price);
-         formData.append('area', this.annonce.area);
-         formData.append('rooms', this.annonce.rooms);
-         formData.append('city', this.annonce.city);
-         formData.append('type', this.annonce.type);
-         formData.append('status', this.annonce.status);
-         formData.append('image', this.annonce.image);
-         axios.post('http://localhost:3000/annonces/createAnnonce', formData, {
-            headers: {
-               'Content-Type': 'multipart/form-data'
-            }
-         })
-            .then(response => {
-               this.annonces.push(response.data);
-               this.resetAnnonce();
-               this.hideModal();
-            })
-            .catch(error => {
-               console.error('Error:', error);
-               alert('Erreur lors de l’ajout de l’annonce: ' + error.message);
-            });
-      },
-      resetAnnonce() {
-         this.annonce = {
-            title: '',
-            description: '',
-            price: null,
-            image: null,
-            area: null,
-            rooms: null,
-            city: '',
-            type: 'maison',
-            status: 'Vendre'
-         };
-      },
-      handleFileUpload(event) {
-         this.annonce.image = event.target.files[0];
-      },
-      hideModal() {
-         const modal = document.getElementById('annonceModal');
-         if (modal) {
-            modal.classList.remove('show');
-            document.body.classList.remove('modal-open');
-            const backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop) {
-               backdrop.parentNode.removeChild(backdrop);
-            }
-         }
-      },
-      deleteAnnonce(index) {
-         const annonce = this.annonces[index];
-         axios.delete(`http://localhost:3000/annonces/${annonce._id}`)
-            .then(() => {
-               this.annonces.splice(index, 1);
-            })
-            .catch(error => {
-               console.error('Error deleting annonce:', error);
-            });
-      },
-      setFilter(filter) {
-         this.currentFilter = filter;
-      },
-      setTypeFilter(type) {
-         this.currentTypeFilter = type;
+
+      axios.post('http://localhost:3000/annonces/createAnnonce', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => {
+          if (response.data) {
+            this.annonces.push(response.data);
+            this.resetAnnonce();
+            this.hideModal();
+          } else {
+            console.error('No data in response:', response);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          if (error.response && error.response.status === 401) {
+            alert('Erreur: Vous n\'êtes pas autorisé à ajouter cette annonce.');
+          } else {
+            alert('Erreur lors de l’ajout de l’annonce: ' + error.message);
+          }
+        });
+    },
+    resetAnnonce() {
+      this.annonce = {
+        title: '',
+        description: '',
+        price: null,
+        image: null,
+        area: null,
+        rooms: null,
+        city: '',
+        type: 'maison',
+        status: 'Vendre'
+      };
+    },
+    handleFileUpload(event) {
+      this.annonce.image = event.target.files[0];
+    },
+    hideModal() {
+      const modal = document.getElementById('annonceModal');
+      if (modal) {
+        modal.classList.remove('show');
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+          backdrop.parentNode.removeChild(backdrop);
+        }
       }
-   }
+    },
+    deleteAnnonce(index) {
+      const annonce = this.annonces[index];
+      let token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
+
+      let config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      axios.delete(`http://localhost:3000/annonces/${annonce._id}`, config)
+        .then(() => {
+          this.annonces.splice(index, 1);
+          console.log('Delete successful');
+        })
+        .catch(error => {
+          console.error('Error deleting annonce:', error);
+          alert('Failed to delete annonce: ' + error.message);
+        });
+    },
+    setFilter(filter) {
+      this.currentFilter = filter;
+    },
+    setTypeFilter(type) {
+      this.currentTypeFilter = type;
+    }
+  }
 }
 </script>
 

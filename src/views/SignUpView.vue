@@ -25,6 +25,7 @@
             <div class="mb-2">
               <select v-model="userData.Profil" required>
                 <option value="" disabled selected hidden>Choisir un profil</option>
+                <option value="superAdmin">super admin</option>
                 <option value="agentImmobilier">Agent Immobilier</option>
                 <option value="internaute">Internaute</option>
                 <option value="adminAgence">Admin Agence</option>

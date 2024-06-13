@@ -23,14 +23,18 @@ import AdminProfile from '@/views/AdminProfile';
 
 const routes = [
   //routes pour ces vues ne spécifient aucune restriction, ce qui signifie qu'elles sont déjà accessibles par tous les utilisateurs, même non connectés.
-  { path: '/', name: 'Home', component: HomeView },
+  {
+    path: '/',
+    name: 'HomeView',
+    component: HomeView
+  },
   { path: '/SignUp', name: 'SignUpView', component: SignUpView },
   { path: '/Connexion', name: 'ConnexionView', component: ConnexionView },
   { path: '/reset-password/:token', name: 'ResetPassword', component: ResetPassword },
   //routes avec des restrictions à d'autres pages à l'avenir, vous pourriez ajouter une métadonnée 'roles' qui inclut les rôles(profil)
   { path: '/profil', name: 'ProfilView', component: profilView, meta: { requiresAuth: true, roles: ['agentImmobilier', 'internaute', 'delegue'] } },
-  { path: '/Acheter', name: 'AcheterView', component: AcheterView, meta: { requiresAuth: true, roles:['superAdmin', 'agentImmobilier','internaute','delegue','adminAgence']} },
-  { path: '/Louer', name: 'LouerView', component: LouerView, meta: { requiresAuth: true, roles:['superAdmin', 'agentImmobilier','internaute','delegue','adminAgence']}  },
+  { path: '/Acheter', name: 'AcheterView', component: AcheterView, meta: { requiresAuth: false, roles:['superAdmin', 'agentImmobilier','internaute','delegue','adminAgence']} },
+  { path: '/Louer', name: 'LouerView', component: LouerView, meta: { requiresAuth: false, roles:['superAdmin', 'agentImmobilier','internaute','delegue','adminAgence']}  },
   { path: '/DeposerAnnonce', name: 'DeposerAnnonce', component: DeposerAnnonce , meta: { requiresAuth: true, roles: ['agentImmobilier','delegue','adminAgence'] }},
   { path: '/Contact', name: 'ContactView', component: ContactView },
   //Admins agences et agents
@@ -45,6 +49,13 @@ const routes = [
 
   { path: '/Annonces', name: 'AnnonceView', component: AnnonceView, meta: { requiresAuth: true, roles: ['superAdmin', 'agentImmobilier','internaute','delegue'] } },
   { path: '/Events', name: 'EventsView', component: EventsView, meta: { requiresAuth: true, roles:['superAdmin','adminAgence']} },  
+  {
+    path: '/Annonces/:id',
+    name: 'AnnonceDetail',
+    component: () => import('@/views/AnnonceDetail.vue'),
+    props: true
+  }
+  
 ];
 // Create and configure the router
 const router = createRouter({

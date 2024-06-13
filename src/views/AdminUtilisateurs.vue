@@ -78,7 +78,7 @@
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn custom-button btn-sm">Ajouter</button>
+                        <button type="submit" class="btn btn-warning  btn-sm">Ajouter</button>
                      </div>
                   </form>
                </div>
@@ -208,6 +208,12 @@ export default {
 </script>
 
 <style>
+/* Ajouter une couleur de fond au champ de saisie */
+.input-group.rounded input[type="search"]:focus,
+.form-control.rounded:focus {
+    background-color: #07528a; /* Couleur de fond lorsqu'il est en focus */
+}
+
 .dropdown-item{
    color: #36667c
 }
@@ -231,7 +237,15 @@ export default {
 }
 .userlist {
    padding: 20px;
-   /* Ajoutez le padding désiré */
+   width: 250px; /* Définir une largeur fixe pour chaque carte */
+   height: 400px; /* Définir une hauteur fixe pour chaque carte */
+   margin: 10px; /* Ajouter une marge pour l'espace entre les cartes */
+}
+.userlist .panel-body {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }
 
 body {

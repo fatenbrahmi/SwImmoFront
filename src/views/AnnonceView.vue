@@ -273,16 +273,29 @@ export default {
                 }
             }
         },
+
+
+        
         deleteAnnonce(index) {
-            const annonce = this.annonces[index];
-            axios.delete(`http://localhost:3000/annonces/${annonce._id}`)
-                .then(() => {
-                    this.annonces.splice(index, 1);
-                })
-                .catch(error => {
-                    console.error('Error deleting annonce:', error);
-                });
-        },
+    const annonce = this.annonces[index];
+    let token = localStorage.getItem('token');  // Retrieve the token from localStorage
+    let config = {
+        headers: {
+            Authorization: `Bearer ${token}`  // Set the Authorization header
+        }
+    };
+    axios.delete(`http://localhost:3000/annonces/${annonce._id}`, config)  // Pass config to axios delete method
+        .then(() => {
+            this.annonces.splice(index, 1);
+            console.log('Delete successful');
+        })
+        .catch(error => {
+            console.error('Error deleting annonce:', error);
+            alert('Failed to delete annonce: ' + error.message);
+        });
+},
+
+
         setFilter(filter) {
             this.currentFilter = filter;
         },
