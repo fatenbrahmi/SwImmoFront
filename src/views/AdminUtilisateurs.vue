@@ -167,7 +167,7 @@ export default {
          });
       },
       submitUser() {
-         axios.post('http://localhost:3000/auth/register', this.user)
+         axios.post('http://localhost:3000/auth/users', this.user)
          .then(response => {
             this.users.push(response.data);
             this.hideModal();

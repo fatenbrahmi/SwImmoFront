@@ -27,9 +27,20 @@
                 <option value="" disabled selected hidden>Choisir un profil</option>
                 <option value="superAdmin">super admin</option>
                 <option value="agentImmobilier">Agent Immobilier</option>
-                <option value="internaute">Internaute</option>
+                <option value="internaute">Client</option>
                 <option value="adminAgence">Admin Agence</option>
                 <option value="delegue">Délégué</option>
+              </select>
+            </div>
+            <div class="mb-2" v-if="userData.Profil === 'adminAgence'">
+              <input type="text" class="custom-input" v-model="userData.nomAgence" placeholder="Nom de l'agence"
+                required>
+            </div>
+            <div class="mb-2" v-if="userData.Profil === 'agentImmobilier'">
+              <select v-model="userData.agence" required>
+                <option v-for="agence in agencies" :key="agence._id" :value="agence._id">
+                  {{ agence.nom }}
+                </option>
               </select>
             </div>
             <div class="mb-2">
@@ -60,8 +71,11 @@ export default {
         telephone: '',
         motDePasse: '',
         Profil: '',
-        photoProfil: ''
-      }
+        photoProfil: '',
+        nomAgence: '',
+        agence: '' 
+      },
+      agencies: [],
     }
   },
   methods: {
@@ -69,6 +83,7 @@ export default {
       this.userData.photoProfil = event.target.files[0];
     },
     async registerUser() {
+      console.log(this.userData.agence)
       let myFormData = new FormData();
 
       myFormData.append('nom', this.userData.nom);
@@ -79,27 +94,54 @@ export default {
       myFormData.append('Profil', this.userData.Profil);
       myFormData.append('file', this.userData.photoProfil);
 
+      if (this.userData.Profil === 'adminAgence') {
+        myFormData.append('nomAgence', this.userData.nomAgence);
+      }
+     else if (this.userData.Profil === 'agentImmobilier') {
+        myFormData.append('agence', this.userData.agence); // Add agency ID when profile is agentImmobilier
+      }
+
       try {
         const response = await axios.post('http://localhost:3000/auth/register', myFormData);
         console.log(response.data);
-        alert("Inscription réussie !");
-        // Réinitialiser les champs du formulaire après une inscription réussie
-        this.userData.nom = '';
-        this.userData.prenom = '';
-        this.userData.email = '';
-        this.userData.telephone = '';
-        this.userData.motDePasse = '';
-        this.userData.Profil = '';
-        this.userData.photoProfil = '';
+        alert(response.data.message);
+        if (response.status === 201) {
+          this.userData.nom = '';
+          this.userData.prenom = '';
+          this.userData.email = '';
+          this.userData.telephone = '';
+          this.userData.motDePasse = '';
+          this.userData.Profil = '';
+          this.userData.photoProfil = '';
+          this.userData.nomAgence = '';
+          this.userData.agence = ''; // Reset agency ID after successful registration
+        }
       } catch (error) {
         console.error(error);
         const errorMessage = error.response?.data?.message || error.message || "Une erreur s'est produite lors de l'inscription.";
         alert("Une erreur s'est produite lors de l'inscription : " + errorMessage);
       }
+    },
+    async fetchAgencies() {
+      try {
+        const response = await axios.get('http://localhost:3000/auth/Agences'); // Updated the endpoint to be more specific with the base URL
+        this.agencies = response.data;
+        console.log('Agencies fetched:', this.agencies); // Log the fetched agencies
+      } catch (error) {
+        console.error('Erreur lors de la récupération des agences:', error);
+      }
+    }
+  },
+  watch: {
+    'userData.Profil'(newValue) {
+      if (newValue === 'agentImmobilier') {
+        this.fetchAgencies();
+      }
     }
   }
 };
 </script>
+
 
 <style scoped>
 .form {

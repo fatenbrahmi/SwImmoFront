@@ -71,7 +71,7 @@
                                         @click.prevent="setFilter('appartement', undefined)">Appartement</a></li>
                                 <li><a class="dropdown-item" href="#"
                                         @click.prevent="setFilter('villa', undefined)">Villa</a></li>
-                                
+
                             </ul>
                         </div>
 
@@ -141,10 +141,17 @@
                         annonce.area }} m²</small>
                     <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
                     <p>Déscription: {{ annonce.description }}</p>
-                </div>
-                <div class="d-flex justify-content-between align-items-center px-4 pb-3">
                     <button type="button" class="btn btn-warning btn-sm">Voir Annonce</button>
                     <i class="bi bi-heart heart-icon"></i>
+                </div>
+                <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
+                    <a v-if="isFavorite(annonce._id)" href="#" class="icon-link"
+                        @click.prevent="removeFavorite(annonce._id)">
+                        <i style="color:red;" class="fa fa-heart"></i>
+                    </a>
+                    <a v-else href="#" class="icon-link" @click.prevent="addFavorite(annonce._id)">
+                        <i class="fa fa-heart"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -181,6 +188,7 @@ export default {
     },
     data() {
         return {
+            favoris: [],
             annonces: [], // Stocke les annonces récupérées
             selectedType: '', // Variable to hold the selected property type
             selectedCity: '',  // Variable to hold the selected city
@@ -230,7 +238,43 @@ export default {
             if (city !== undefined) this.selectedCity = city;
             if (rooms !== undefined) this.selectedRooms = rooms;
             console.log('Current Filters:', this.selectedType, this.selectedCity, this.selectedRooms);
-        }
+        },
+        isFavorite(annonceId) {
+            console.log(this.favoris.length)
+            return this.favoris.some(fav => fav.idAnnonce == annonceId);
+        },
+        async addFavorite(annonceId) {
+            let userId = JSON.parse(localStorage.getItem('userData'))._id
+            try {
+                const response = await axios.post('http://localhost:3000/favoris/addFavoris', { userId: userId, idAnnonce: annonceId });
+                console.log('Added to favorites:', response.data);
+                this.favoris.push({ _id: response.data._id, idAnnonce: annonceId }); // Add the new favorite to the list
+            } catch (error) {
+                console.error('Failed to add to favorites:', error);
+            }
+        },
+        async removeFavorite(annonceId) {
+
+            await axios.delete(`http://localhost:3000/favoris/deleteFavoris/${annonceId}`);
+            console.log('Removed from favorites:', annonceId);
+            this.fetchFavoris() // Remove the favorite from the list
+
+
+        },
+        fetchFavoris() {
+            let userId = JSON.parse(localStorage.getItem('userData'))._id
+            console.log(userId)
+            try {
+                axios.get(`http://localhost:3000/favoris/getFavoris/${userId}`)
+                    .then(response => {
+                        this.favoris = response.data;
+                        console.log("les favoris", response.data)
+                    })
+
+            } catch (error) {
+                console.error("Error fetching favorites:", error);
+            }
+        },
     },
     mounted() {
       
@@ -241,6 +285,7 @@ export default {
                 heartIcon.classList.toggle('active');
             });
         });
+        this.fetchFavoris()
       
     }
 

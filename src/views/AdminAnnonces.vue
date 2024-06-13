@@ -1,5 +1,6 @@
 <template>
    <AdminNavbar />
+   <div v-if="loading">Loading...</div>
    <SideBar />
    <div :style="{ 'margin-left': sidebarWidth }">
       <router-view />
@@ -34,7 +35,7 @@
                <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('appartement')">Appartement</a></li>
                <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('villa')">Villa</a></li>
                <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('terrain')">Terrain</a></li>
-               
+
             </ul>
          </div>
 
@@ -145,8 +146,16 @@
                               <p>Description: {{ annonce.description }}</p>
                               <button type="button" class="btn btn-outline-primary btn-sm custom-button">Voir
                                  annonce</button>
-                              <a href="#" class="btn btn-link pull-right btn-sm"
-                                 @click.prevent="deleteAnnonce(index)"><i class="fa fa-trash"></i></a>
+                              <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
+
+                                 <a href="#" class="icon-link" @click.prevent="editAnnonce(annonce)">
+                                    <i class="fas fa-pencil-alt"></i>
+                                 </a>
+                                 <a href="#" class="icon-link" @click.prevent="deleteAnnonce(index)">
+                                    <i class="fa fa-trash"></i>
+                                 </a>
+                              </div>
+
                            </div>
                         </div>
                      </div>
@@ -161,184 +170,188 @@
 import AdminNavbar from '@/components/AdminNavbar.vue';
 import SideBar from '@/components/Sidebar/SideBar.vue';
 import axios from 'axios';
-
 export default {
-  components: { AdminNavbar, SideBar },
-  data() {
-    return {
-      annonces: [],
-      annonce: {
-        title: '',
-        description: '',
-        price: null,
-        image: null,
-        area: null,
-        rooms: null,
-        city: '',
-        type: 'maison',
-        status: 'Vendre'
+   components: { AdminNavbar, SideBar },
+   data() {
+      return {
+         annonces: [],
+         annonce: {
+            title: '',
+            description: '',
+            price: null,
+            image: null,
+            area: null,
+            rooms: null,
+            city: '',
+            type: 'maison',
+            status: 'Vendre'
+         },
+         searchQuery: '',
+         currentFilter: 'Tous',
+         currentTypeFilter: '' // New filter for Type de bien
+      };
+   },
+   mounted() {
+      this.fetchAnnonces();
+   },
+   computed: {
+      filteredAnnonces() {
+         let searchString = this.searchQuery.toLowerCase();
+         return this.annonces.filter(annonce => {
+            return (this.currentFilter === 'Tous' || annonce.status === this.currentFilter) &&
+               (this.currentTypeFilter === '' || annonce.type === this.currentTypeFilter) &&
+               (annonce.title.toLowerCase().includes(searchString) ||
+                  annonce.description.toLowerCase().includes(searchString) ||
+                  annonce.city.toLowerCase().includes(searchString));
+         });
+      }
+   },
+   methods: {
+      fetchAnnonces() {
+         let token = localStorage.getItem('token')
+         let config = {
+            headers: {
+               Authorization: `Bearer ${token}`
+            }
+         }
+         axios.get('http://localhost:3000/annonces', config)
+            .then(response => {
+               this.annonces = response.data;
+            })
+            .catch(error => console.error("Error fetching annonces:", error));
       },
-      searchQuery: '',
-      currentFilter: 'Tous',
-      currentTypeFilter: ''
-    };
-  },
-  mounted() {
-    this.fetchAnnonces();
-  },
-  computed: {
-    filteredAnnonces() {
-      if (!Array.isArray(this.annonces)) {
-        console.error('annonces is not an array:', this.annonces);
-        return [];
+      submitAnnonce() {
+         let formData = new FormData();
+         formData.append('title', this.annonce.title);
+         formData.append('description', this.annonce.description);
+         formData.append('price', this.annonce.price);
+         formData.append('area', this.annonce.area);
+         formData.append('rooms', this.annonce.rooms);
+         formData.append('city', this.annonce.city);
+         formData.append('type', this.annonce.type);
+         formData.append('status', this.annonce.status);
+         formData.append('image', this.annonce.image);
+         let token = localStorage.getItem('token');
+         axios.post('http://localhost:3000/annonces/createAnnonce', formData, {
+            headers: {
+               'Content-Type': 'multipart/form-data',
+               'Authorization': `Bearer ${token}`
+            }
+         })
+            .then(response => {
+               this.annonces.push(response.data);
+               this.resetAnnonce();
+               this.hideModal();
+            })
+            .catch(error => {
+               console.error('Error:', error);
+               alert('Erreur lors de l’ajout de l’annonce: ' + error.message);
+            });
+      },
+      resetAnnonce() {
+         this.annonce = {
+            title: '',
+            description: '',
+            price: null,
+            image: null,
+            area: null,
+            rooms: null,
+            city: '',
+            type: 'maison',
+            status: 'Vendre'
+         };
+      },
+      handleFileUpload(event) {
+         this.annonce.image = event.target.files[0];
+      },
+      hideModal() {
+         const modal = document.getElementById('annonceModal');
+         if (modal) {
+            modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+               backdrop.parentNode.removeChild(backdrop);
+            }
+         }
+      },
+      deleteAnnonce(index) {
+         const annonce = this.annonces[index];
+         let token = localStorage.getItem('token');  // Retrieve the token from localStorage
+         let config = {
+            headers: {
+               Authorization: `Bearer ${token}`  // Set the Authorization header
+            }
+         };
+         axios.delete(`http://localhost:3000/annonces/${annonce._id}`, config)  // Pass config to axios delete method
+            .then(() => {
+               this.annonces.splice(index, 1);
+               console.log('Delete successful');
+            })
+            .catch(error => {
+               console.error('Error deleting annonce:', error);
+               alert('Failed to delete annonce: ' + error.message);
+            });
       }
-
-      let searchString = this.searchQuery.toLowerCase();
-      return this.annonces.filter(annonce => {
-        return (this.currentFilter === 'Tous' || annonce.status === this.currentFilter) &&
-          (this.currentTypeFilter === '' || annonce.type === this.currentTypeFilter) &&
-          (annonce.title.toLowerCase().includes(searchString) ||
-            annonce.description.toLowerCase().includes(searchString) ||
-            annonce.city.toLowerCase().includes(searchString));
-      });
-    }
-  },
-  methods: {
-    fetchAnnonces() {
-      let token = localStorage.getItem('token');
-      if (!token) {
-        console.error('No token found');
-        return;
+,
+      setFilter(filter) {
+         this.currentFilter = filter;
+      },
+      setTypeFilter(type) {
+         this.currentTypeFilter = type;
       }
-
-      let config = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      };
-
-      axios.get('http://localhost:3000/annonces', config)
-        .then(response => {
-          if (Array.isArray(response.data)) {
-            this.annonces = response.data;
-          } else {
-            console.error('Fetched data is not an array:', response.data);
-            this.annonces = [];
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching annonces:', error);
-          this.annonces = [];
-        });
-    },
-    submitAnnonce() {
-      let formData = new FormData();
-      formData.append('title', this.annonce.title);
-      formData.append('description', this.annonce.description);
-      formData.append('price', this.annonce.price);
-      formData.append('area', this.annonce.area);
-      formData.append('rooms', this.annonce.rooms);
-      formData.append('city', this.annonce.city);
-      formData.append('type', this.annonce.type);
-      formData.append('status', this.annonce.status);
-      formData.append('image', this.annonce.image);
-
-      let token = localStorage.getItem('token');
-      if (!token) {
-        console.error('No token found');
-        alert('Vous devez être connecté pour ajouter une annonce.');
-        return;
-      }
-
-      axios.post('http://localhost:3000/annonces/createAnnonce', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`
-        }
-      })
-        .then(response => {
-          if (response.data) {
-            this.annonces.push(response.data);
-            this.resetAnnonce();
-            this.hideModal();
-          } else {
-            console.error('No data in response:', response);
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          if (error.response && error.response.status === 401) {
-            alert('Erreur: Vous n\'êtes pas autorisé à ajouter cette annonce.');
-          } else {
-            alert('Erreur lors de l’ajout de l’annonce: ' + error.message);
-          }
-        });
-    },
-    resetAnnonce() {
-      this.annonce = {
-        title: '',
-        description: '',
-        price: null,
-        image: null,
-        area: null,
-        rooms: null,
-        city: '',
-        type: 'maison',
-        status: 'Vendre'
-      };
-    },
-    handleFileUpload(event) {
-      this.annonce.image = event.target.files[0];
-    },
-    hideModal() {
-      const modal = document.getElementById('annonceModal');
-      if (modal) {
-        modal.classList.remove('show');
-        document.body.classList.remove('modal-open');
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-          backdrop.parentNode.removeChild(backdrop);
-        }
-      }
-    },
-    deleteAnnonce(index) {
-      const annonce = this.annonces[index];
-      let token = localStorage.getItem('token');
-      if (!token) {
-        console.error('No token found');
-        return;
-      }
-
-      let config = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      };
-
-      axios.delete(`http://localhost:3000/annonces/${annonce._id}`, config)
-        .then(() => {
-          this.annonces.splice(index, 1);
-          console.log('Delete successful');
-        })
-        .catch(error => {
-          console.error('Error deleting annonce:', error);
-          alert('Failed to delete annonce: ' + error.message);
-        });
-    },
-    setFilter(filter) {
-      this.currentFilter = filter;
-    },
-    setTypeFilter(type) {
-      this.currentTypeFilter = type;
-    }
-  }
+   }
 }
 </script>
 
 
 <style>
+/* Style pour la description des annonces */
+p {
+   text-align: left;
+   /* Alignement à gauche */
+   font-size: 14px;
+   /* Taille de la police réduite */
+}
 
+/* Vous pourriez également vouloir spécifier ces styles uniquement pour les descriptions dans les cartes des annonces pour éviter d'affecter d'autres paragraphes dans votre application */
+.property-item p {
+   text-align: left;
+   /* Alignement à gauche */
+   font-size: 13px;
+   /* Taille de la police réduite */
+}
+.icon-container {
+   display: flex;
+   align-items: center;
+   justify-content: end;
+   /* Align icons to the end of the flex container */
+   color: #c0c0c1;
+   /* Grey color */
+}
 
+.icon-link {
+   margin-left: 10px;
+   /* Space between icons */
+   cursor: pointer;
+}
+
+.icon-link i {
+   font-size: 16px;
+   /* Appropriate size for icons */
+   transition: color 0.3s;
+}
+
+.icon-link i:hover {
+   color: #6a6a6b;
+   /* Color on hover */
+}
+
+.fa-pencil-alt,
+.fa-trash {
+   /* Ensure all icons have the same color and style */
+   color: #c6c8ca;
+}
 
 /* button group */
 .custom-btn-color {
