@@ -99,13 +99,12 @@ export default {
         this.loginData.motDePasse = ''
         localStorage.setItem('userData', JSON.stringify(response.data.user))
         localStorage.setItem('token', response.data.token)
-        // Check if the user is a superAdmin
+        // Redirect based on user profile
         if (response.data.isSuperAdmin) {
-          // Redirect to AdminDashboard view
           this.$router.push({ name: 'AdminDashboard' });
+        } else if (response.data.isAdminAgence) {
+          this.$router.push({ name: 'agentsImmo' });
         } else {
-          // Redirect to the default view after login
-          // Replace 'Home' with the desired default view
           this.$router.push({ name: 'Home' });
         }
 
@@ -154,10 +153,7 @@ export default {
 
 
 <style scoped>
-/* ------------------------------------ Click on login and Sign Up to  changue and view the effect
----------------------------------------
-*/
-/* Styles personnalisés pour la modal */
+
 .custom-modal-dialog {
   max-width: 700px; /* Largeur maximale de la modal */
 }

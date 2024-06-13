@@ -19,7 +19,7 @@
             <router-link to="/profil-list" class="nav-item nav-link"><i class="fas fa-bell"></i></router-link>
           </li>
           <li class="nav-item pe-3">
-            <router-link to="/profil-list" class="nav-item nav-link"><i class="fas fa-heart"></i></router-link>
+            <router-link to="/favoriteList" class="nav-item nav-link"><i class="fas fa-heart"></i></router-link>
           </li>
           <li class="nav-item dropdown pe-3">
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -71,6 +71,9 @@ export default {
 </script>
 
 <style scoped>
+.fa-heart {
+  color: rgb(56, 55, 55)
+}
 body {
   padding-top: 80px;
   /* Adjust based on the height of your navbar */

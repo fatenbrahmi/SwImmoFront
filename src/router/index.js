@@ -9,15 +9,18 @@ import AcheterView from '@/views/AcheterView.vue'
 import LouerView from '@/views/LouerView.vue'
 import AnnonceView from '@/views/AnnonceView.vue'
 import DeposerAnnonce from '@/views/DeposerAnnonce.vue'
-import AgentView from '@/views/AgentView.vue'
-import DashboardAgent from '@/views/DashboardAgent.vue'
-import AnnonceAgent from '@/views/AnnonceAgent.vue'
+import agenceDashboard from '@/views/AdminAgence/agenceDashboard'
+import annoncesAgents from '@/views/AdminAgence/annoncesAgents'
+import agentsImmo from '@/views/AdminAgence/agentsImmo.vue';
 import EventsView from '@/views/EventsView.vue'
 //Admin interfaces
 import AdminAnnonces from '@/views/AdminAnnonces.vue'
 import AdminDashboard from '@/views/AdminDashboard.vue'
 import AdminUtilisateurs from '@/views/AdminUtilisateurs.vue'
 import AdminProfile from '@/views/AdminProfile';
+import favoriteList from '@/views/favoriteList';
+
+
 
 
 
@@ -27,16 +30,17 @@ const routes = [
   { path: '/SignUp', name: 'SignUpView', component: SignUpView },
   { path: '/Connexion', name: 'ConnexionView', component: ConnexionView },
   { path: '/reset-password/:token', name: 'ResetPassword', component: ResetPassword },
+  { path: '/favoriteList', name: 'favoriteList', component: favoriteList },
   //routes avec des restrictions à d'autres pages à l'avenir, vous pourriez ajouter une métadonnée 'roles' qui inclut les rôles(profil)
-  { path: '/profil', name: 'ProfilView', component: profilView, meta: { requiresAuth: true, roles: ['agentImmobilier', 'internaute', 'delegue'] } },
+  { path: '/profil', name: 'ProfilView', component: profilView, meta: { requiresAuth: true, roles: ['agentImmobilier', 'internaute', 'delegue','superAdmin'] } },
   { path: '/Acheter', name: 'AcheterView', component: AcheterView, meta: { requiresAuth: true, roles:['superAdmin', 'agentImmobilier','internaute','delegue','adminAgence']} },
   { path: '/Louer', name: 'LouerView', component: LouerView, meta: { requiresAuth: true, roles:['superAdmin', 'agentImmobilier','internaute','delegue','adminAgence']}  },
-  { path: '/DeposerAnnonce', name: 'DeposerAnnonce', component: DeposerAnnonce , meta: { requiresAuth: true, roles: ['agentImmobilier','delegue','adminAgence'] }},
+  { path: '/DeposerAnnonce', name: 'DeposerAnnonce', component: DeposerAnnonce , meta: { requiresAuth: true, roles: ['agentImmobilier','delegue','adminAgence','superAdmin'] }},
   { path: '/Contact', name: 'ContactView', component: ContactView },
-  //Admins agences et agents
-  { path: '/Agent', name: 'AgentView', component: AgentView, meta: { requiresAuth: true, roles: ['agentImmobilier','adminAgence']} },
-  { path: '/AnnonceAgent', name: 'AnnonceAgent', component: AnnonceAgent, meta: { requiresAuth: true, roles: ['agentImmobilier','adminAgence'] } },
-  { path: '/DashboardAgent', name: 'DashboardAgent', component: DashboardAgent, meta: { requiresAuth: true, roles:['agentImmobilier','adminAgence'] } },
+  //Admins agences 
+  { path: '/agenceDashboard', name: 'agenceDashboard', component: agenceDashboard, meta: { requiresAuth: true, roles: ['adminAgence']} },
+  { path: '/annoncesAgents', name: 'agentsAnnonces', component: annoncesAgents, meta: { requiresAuth: true, roles: ['adminAgence'] } },
+  { path: '/agentsImmo', name: 'agentsImmo', component: agentsImmo, meta: { requiresAuth: true, roles: ['adminAgence'] } },
   //Super admin
   { path: '/AdminAnnonces', name: 'AdminAnnonces', component: AdminAnnonces, meta: { requiresAuth: true, role: 'superAdmin' } },
   { path: '/AdminDashboard', name: 'AdminDashboard', component: AdminDashboard, meta: { requiresAuth: true, role: 'superAdmin' } },

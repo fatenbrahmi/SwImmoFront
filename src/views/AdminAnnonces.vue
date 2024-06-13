@@ -1,5 +1,6 @@
 <template>
    <AdminNavbar />
+   <div v-if="loading">Loading...</div>
    <SideBar />
    <div :style="{ 'margin-left': sidebarWidth }">
       <router-view />
@@ -34,7 +35,7 @@
                <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('appartement')">Appartement</a></li>
                <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('villa')">Villa</a></li>
                <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('terrain')">Terrain</a></li>
-               
+
             </ul>
          </div>
 
@@ -145,8 +146,16 @@
                               <p>Description: {{ annonce.description }}</p>
                               <button type="button" class="btn btn-outline-primary btn-sm custom-button">Voir
                                  annonce</button>
-                              <a href="#" class="btn btn-link pull-right btn-sm"
-                                 @click.prevent="deleteAnnonce(index)"><i class="fa fa-trash"></i></a>
+                              <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
+
+                                 <a href="#" class="icon-link" @click.prevent="editAnnonce(annonce)">
+                                    <i class="fas fa-pencil-alt"></i>
+                                 </a>
+                                 <a href="#" class="icon-link" @click.prevent="deleteAnnonce(index)">
+                                    <i class="fa fa-trash"></i>
+                                 </a>
+                              </div>
+
                            </div>
                         </div>
                      </div>
@@ -222,9 +231,11 @@ export default {
          formData.append('type', this.annonce.type);
          formData.append('status', this.annonce.status);
          formData.append('image', this.annonce.image);
+         let token = localStorage.getItem('token');
          axios.post('http://localhost:3000/annonces/createAnnonce', formData, {
             headers: {
-               'Content-Type': 'multipart/form-data'
+               'Content-Type': 'multipart/form-data',
+               'Authorization': `Bearer ${token}`
             }
          })
             .then(response => {
@@ -266,14 +277,23 @@ export default {
       },
       deleteAnnonce(index) {
          const annonce = this.annonces[index];
-         axios.delete(`http://localhost:3000/annonces/${annonce._id}`)
+         let token = localStorage.getItem('token');  // Retrieve the token from localStorage
+         let config = {
+            headers: {
+               Authorization: `Bearer ${token}`  // Set the Authorization header
+            }
+         };
+         axios.delete(`http://localhost:3000/annonces/${annonce._id}`, config)  // Pass config to axios delete method
             .then(() => {
                this.annonces.splice(index, 1);
+               console.log('Delete successful');
             })
             .catch(error => {
                console.error('Error deleting annonce:', error);
+               alert('Failed to delete annonce: ' + error.message);
             });
-      },
+      }
+,
       setFilter(filter) {
          this.currentFilter = filter;
       },
@@ -286,8 +306,52 @@ export default {
 
 
 <style>
+/* Style pour la description des annonces */
+p {
+   text-align: left;
+   /* Alignement à gauche */
+   font-size: 14px;
+   /* Taille de la police réduite */
+}
 
+/* Vous pourriez également vouloir spécifier ces styles uniquement pour les descriptions dans les cartes des annonces pour éviter d'affecter d'autres paragraphes dans votre application */
+.property-item p {
+   text-align: left;
+   /* Alignement à gauche */
+   font-size: 13px;
+   /* Taille de la police réduite */
+}
+.icon-container {
+   display: flex;
+   align-items: center;
+   justify-content: end;
+   /* Align icons to the end of the flex container */
+   color: #c0c0c1;
+   /* Grey color */
+}
 
+.icon-link {
+   margin-left: 10px;
+   /* Space between icons */
+   cursor: pointer;
+}
+
+.icon-link i {
+   font-size: 16px;
+   /* Appropriate size for icons */
+   transition: color 0.3s;
+}
+
+.icon-link i:hover {
+   color: #6a6a6b;
+   /* Color on hover */
+}
+
+.fa-pencil-alt,
+.fa-trash {
+   /* Ensure all icons have the same color and style */
+   color: #c6c8ca;
+}
 
 /* button group */
 .custom-btn-color {

@@ -15,17 +15,12 @@
                <li class="nav-item pe-3">
                   <router-link to="/profil-list" class="nav-item nav-link"><i class="fas fa-bell"></i></router-link>
                </li>
-               <li class="nav-item pe-3">
-                  <router-link to="/profil-list" class="nav-item nav-link"><i class="fas fa-heart"></i></router-link>
-               </li>
                <li class="nav-item dropdown pe-3">
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                      <i class="fas fa-user"></i> <!-- Profile icon -->
                      <span class="d-none d-md-block dropdown-toggle ps-2">Espace Admin</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                     <li><router-link to="/AdminProfile" class="dropdown-item"><i class="fas fa-user"></i> Mon
-                           Profil</router-link></li>
                      <li><router-link to="/Apropos" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> A
                            propos</router-link></li>
                      <li><router-link to="/Paramètres" class="dropdown-item"><i class="fas fa-newspaper"></i>
@@ -71,6 +66,9 @@
 
 
 <style scoped>
+.fa-heart{
+   color: rgb(56, 55, 55)
+}
 .nav-item {
    list-style: none;
    margin-right: 10px;
