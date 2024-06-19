@@ -114,6 +114,9 @@
                 </div>
             </div>
         </div>
+        <!-- Property List Start -->
+<div class="container-xxl py-5">
+    <div id="contents" class="contents-container">
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="tab-content">
@@ -121,7 +124,7 @@
                         <div class="row g-4">
                             <div v-for="(annonce) in filteredAnnonces" :key="annonce._id"
                                 class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                                <div  class="property-item rounded overflow-hidden h-100">
+                                <div class="property-item rounded overflow-hidden h-100 d-flex flex-column">
                                     <div class="position-relative overflow-hidden">
                                         <a :href="annonce.link || '#'">
                                             <img :src="'http://localhost:3000/' + annonce.image || '../Assets/img/default-property.jpg'"
@@ -132,16 +135,19 @@
                                             {{ annonce.type }}
                                         </div>
                                     </div>
-                                    <div class="p-4 pb-0">
+                                    <div class="p-4 pb-0 flex-grow-1 d-flex flex-column">
                                         <h5 class="text-primary mb-1">{{ annonce.title }}</h5>
                                         <h5 class="text-secondary mb-3">{{ annonce.price }} DT</h5>
                                         <small class="flex-fill text-center"><i
-                                                class="fa fa-ruler-combined text-primary me-2"></i>{{
-                                            annonce.area }} m²</small>
+                                                class="fa fa-ruler-combined text-primary me-2"
+                                                style="color: #5c6060;"></i>{{ annonce.area }} m²
+                                        </small>
                                         <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
                                         <p>Description: {{ annonce.description }}</p>
-                                        <button type="button" class="btn btn-outline-primary btn-sm annonce-button">Voir
-                                            annonce</button>
+                                        <div class="mt-auto mb-3">
+                                            <button type="button" class="btn btn-warning annonce-button"
+                                                @click="voirDetailsAnnonce(annonce._id)">Voir annonce</button>
+                                        </div>
                                         <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
                                             <a v-if="isFavorite(annonce._id)" href="#" class="icon-link"
                                                 @click.prevent="removeFavorite(annonce._id)">
@@ -151,14 +157,8 @@
                                                 @click.prevent="addFavorite(annonce._id)">
                                                 <i class="fa fa-heart"></i>
                                             </a>
-                                            <a href="#" class="icon-link" @click.prevent="editAnnonce(annonce)">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
-                                            <a href="#" class="icon-link" @click.prevent="deleteAnnonce(annonce._id)">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
+                                          
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +167,9 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<!-- Property List End -->
     </div>
 </template>
 <script>

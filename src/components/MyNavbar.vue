@@ -249,14 +249,22 @@ export default {
 
 
     submitAlerte() {
-      // Construire l'objet d'alerte à envoyer
       const nouvelleAlerte = {
-        utilisateurEmail: this.alerte.utilisateurEmail,
         critere: this.alerte.critere
       };
 
-      // Effectuer la requête POST pour créer une alerte
-      axios.post('http://localhost:3000/alerts', nouvelleAlerte)
+      let token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found');
+        alert('Vous devez être connecté pour créer une alerte.');
+        return;
+      }
+
+      axios.post('http://localhost:3000/alerts', nouvelleAlerte, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
         .then(response => {
           console.log('Alerte créée avec succès:', response.data);
           this.resetAlerteForm();
@@ -269,7 +277,6 @@ export default {
     },
     resetAlerteForm() {
       this.alerte = {
-        utilisateurEmail: '',
         critere: {
           prixMax: null,
           localisation: '',
