@@ -187,34 +187,38 @@
          <!-- End of the Update Annonce Modal -->
       </div>
       <div class="container-xxl py-5">
-         <div class="container">
-            <div class="tab-content">
-               <div id="tab-1" class="tab-pane fade show p-0 active">
-                  <div class="row g-4">
-                     <div v-for="(annonce, index) in filteredAnnonces" :key="annonce._id"
-                        class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden h-100">
-                           <div class="position-relative overflow-hidden">
-                              <a :href="annonce.link || '#'">
-                                 <img
-                                    :src="'http://localhost:3000/' + annonce.image || '../Assets/img/default-property.jpg'"
-                                    class="img-fluid" alt="Image de l'annonce">
-                              </a>
-                              <div
-                                 class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
-                                 {{ annonce.type }}
-                              </div>
-                           </div>
-                           <div class="p-4 pb-0">
-                              <h5 class="text-primary mb-1">{{ annonce.title }}</h5>
-                              <h5 class="text-secondary mb-3">{{ annonce.price }} DT</h5>
-                              <small class="flex-fill text-center"><i
-                                    class="fa fa-ruler-combined text-primary me-2"></i>{{
-                                 annonce.area }} m²</small>
-                              <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
-                              <p>Description: {{ annonce.description }}</p>
-                              <button type="button" class="btn btn-outline-primary btn-sm custom-button">Voir
-                                 annonce</button>
+        <div id="contents" class="contents-container">
+             <div class="container-xxl py-5">
+              <div class="container">
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            <div v-for="(annonce) in filteredAnnonces" :key="annonce._id"
+                                class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                                <div class="property-item rounded overflow-hidden h-100 d-flex flex-column">
+                                    <div class="position-relative overflow-hidden">
+                                        <a :href="annonce.link || '#'">
+                                            <img :src="'http://localhost:3000/' + annonce.image || '../Assets/img/default-property.jpg'"
+                                                class="img-fluid" alt="Image de l'annonce">
+                                        </a>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            {{ annonce.type }}
+                                        </div>
+                                    </div>
+                                    <div class="p-4 pb-0 flex-grow-1 d-flex flex-column">
+                                        <h5 class="text-primary mb-1">{{ annonce.title }}</h5>
+                                        <h5 class="text-secondary mb-3">{{ annonce.price }} DT</h5>
+                                        <small class="flex-fill text-center"><i
+                                                class="fa fa-ruler-combined text-primary me-2"
+                                                style="color: #5c6060;"></i>{{ annonce.area }} m²
+                                        </small>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
+                                        <p>Description: {{ annonce.description }}</p>
+                                        <div class="mt-auto mb-3">
+                                            <button type="button" class="btn btn-warning annonce-button"
+                                                @click="voirDetailsAnnonce(annonce._id)">Voir annonce</button>
+                                        </div>
                               <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
 
                                  <a href="#" class="icon-link" @click.prevent="editAnnonce(annonce)">
@@ -224,7 +228,7 @@
                                     <i class="fa fa-trash"></i>
                                  </a>
                               </div>
-
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -233,6 +237,7 @@
             </div>
          </div>
       </div>
+   </div>
    </div>
 </template>
 <script>
@@ -414,6 +419,24 @@ export default {
 
 <style scoped>
 /* Style pour la description des annonces */
+.property-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.property-item .p-4.pb-0 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.property-item .mt-auto {
+    margin-top: auto;
+}
+.property-item img {
+  height: 300px; /* Hauteur fixe pour toutes les images des cartes */
+  width: 100%;   /* Assure que l'image prend toute la largeur disponible */
+  object-fit: cover; /* Assure que l'image remplit le conteneur en conservant ses proportions */
+}
 p {
    text-align: left;
    /* Alignement à gauche */

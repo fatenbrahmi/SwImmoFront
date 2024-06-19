@@ -1,35 +1,27 @@
 <template>
+  <MyNavbar />
   <div class="container">
+    <div class="row justify-content-center mt-5">
     <div class="row gutters">
       <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
           <div class="card-body">
             <div class="account-settings">
               <div class="user-profile">
-
                 <div class="user-avatar position-relative">
-
-                  <input type="file" id="profile-image" accept="image/*" style="display: none;">
+                  <input type="file" id="profile-image" accept="image/*" style="display: none;" @change="updateProfileImage">
                   <label for="profile-image">
-
                     <i class="bi bi-pencil-square position-absolute" style="right: 5px; bottom: 5px;"></i>
-
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"
-                      id="profile-preview" class="img-fluid">
-
+                    <img :src="'http://localhost:3000/' + user.photoProfil || 'path/to/your/white-image.png'" alt="" class="userpicimg">
                   </label>
                 </div>
-                <!-- MODIFABLE -->
-                <h5 class="user-name" contenteditable="true">Nom et prénom utilisateur</h5>
-                <!-- Champ d'édition pour l'e-mail -->
-                <h6 class="user-email" contenteditable="true">utilisateur@gmail.com</h6>
+                <h5 class="user-name">{{ user.nom }} {{ user.prenom }}</h5>
+                <h6 class="user-email">{{ user.email }}</h6>
               </div>
-
             </div>
           </div>
         </div>
       </div>
-
 
       <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
@@ -42,75 +34,134 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Nom" required />
+                    <input type="text" v-model="user.nom" class="form-control" placeholder="Nom" required />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Prénom" required />
+                    <input type="text" v-model="user.prenom" class="form-control" placeholder="Prénom" required />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Email" required />
+                    <input type="email" v-model="user.email" class="form-control" placeholder="Email" required />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="tel" class="form-control" placeholder="Téléphone" required />
+                    <input type="tel" v-model="user.telephone" class="form-control" placeholder="Téléphone" required />
                   </div>
+                  
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <select class="form-select" placeholder="Profil" required>
+                    <select v-model="user.Profil" class="form-select" required>
                       <option value="internaute">Client</option>
-                      <option value="délégué">Délégué</option>
-                      <option value="agent">Agent immobilier</option>
+                      <option value="delegue">Délégué</option>
+                      <option value="agentImmobilier">Agent immobilier</option>
                       <option value="adminAgence">Admin Agence</option>
                     </select>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required />
+                    <input type="password" v-model="user.motDePasse" class="form-control" placeholder="Password" required />
                   </div>
                 </div>
               </div>
-
             </div>
             <br><br><br>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div class="text-right">
-                <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
-                <!-- Ajoutez une classe "btn-margin" pour définir la marge -->
-                <button type="button" id="submit" name="submit" class="btn btn-warning btn-margin">Update</button>
+                <button type="button" @click="cancelUpdate" class="btn btn-secondary">Cancel</button>
+                <button type="button" @click="updateUser" class="btn btn-warning btn-margin">Update</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </div>
   </div>
-
 </template>
+
 <script>
+import axios from 'axios';
+import MyNavbar from '@/components/MyNavbar.vue'
 export default {
-  mounted() {
-    
-    document.getElementById('profile-image').addEventListener('change', function(event) {
-      // Récupérer le fichier sélectionné
+  components: {
+    MyNavbar,
+  },
+  data() {
+    return {
+      user: {
+        nom: '',
+        prenom: '',
+        email: '',
+        telephone: '',
+        Profil: '',
+        photoProfil: '',
+        motDePasse: ''
+      }
+    };
+  },
+  methods: {
+    async fetchUser() {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:3000/auth/users/:id', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.user = response.data;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des informations utilisateur:', error);
+      }
+    },
+    async updateUser() {
+      try {
+        const token = localStorage.getItem('token');
+        await axios.put('http://localhost:3000/auth/users/:id', this.user, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        alert('Informations mises à jour avec succès!');
+      } catch (error) {
+        console.error('Erreur lors de la mise à jour des informations utilisateur:', error);
+      }
+    },
+    cancelUpdate() {
+      this.fetchUser();
+    },
+    updateProfileImage(event) {
       const file = event.target.files[0];
-
-      // Créer un objet URL pour la prévisualisation de l'image
-      const imageURL = URL.createObjectURL(file);
-
-      // Mettre à jour l'attribut src de l'élément d'image avec la nouvelle image
-      document.getElementById('profile-preview').src = imageURL;
-    });
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.user.photoProfil = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  },
+  mounted() {
+    this.fetchUser();
   }
-}
+};
 </script>
-<style>
+
+
+
+
+
+<style scoped>
+.btn-margin {
+  margin-left: 10px;
+}
+
+
 .btn-margin {
     margin-left: 10px; /* Ajoute une marge de 10px à gauche du bouton */
 }

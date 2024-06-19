@@ -9,8 +9,10 @@
               <div class="col-md-6">
                 <img v-if="annonce.image" :src="'http://localhost:3000/' + annonce.image" class="img-fluid mb-3" alt="Image de l'annonce">
               </div>
+              <!-- Add margin-right to create space -->
+              <div class="col-md-1"></div>
               <!-- Partie droite pour les détails -->
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <h5 class="card-title">{{ annonce.title }}</h5>
                 <p class="card-text">{{ annonce.description }}</p>
                 <p>Prix: {{ annonce.price }} DT</p>
@@ -18,7 +20,6 @@
                 <p>Ville: {{ annonce.city }}</p>
                 <!-- Afficher les informations de l'utilisateur (propriétaire) -->
                 <div v-if="annonce.user">
-                  
                   <p>Téléphone: {{ annonce.user.telephone }}</p>
                   <!-- Autres informations de l'utilisateur si disponibles -->
                 </div>
@@ -30,6 +31,13 @@
       </div>
     </div>
   </template>
+  
+
+  
+  <style>
+  /* Custom styles can be added here if needed */
+  </style>
+  
   
   <script>
   import axios from 'axios';

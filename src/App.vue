@@ -14,15 +14,20 @@
 
 
 <script>
-
-
+import io from 'socket.io-client';
 
 export default {
-  components:{
-   
+  name: 'App',
+  mounted() {
+    const socket = io.connect('http://localhost:3000');
 
-  }
-}
+    socket.on('nouvelleAnnonce', (data) => {
+      console.log('Nouvelle annonce:', data);
+      // Affichez la notification à l'utilisateur
+      alert(data.message);
+    });
+  },
+};
 </script>
 
 

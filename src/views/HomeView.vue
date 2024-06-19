@@ -190,6 +190,17 @@
                                             <button type="button" class="btn btn-warning annonce-button"
                                                 @click="voirDetailsAnnonce(annonce._id)">Voir annonce</button>
                                         </div>
+                                        <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
+                                            <a v-if="isFavorite(annonce._id)" href="#" class="icon-link"
+                                                @click.prevent="removeFavorite(annonce._id)">
+                                                <i  style="color:red;" class="fa fa-heart"></i>
+                                            </a>
+                                            <a v-else href="#" class="icon-link"
+                                                @click.prevent="addFavorite(annonce._id)">
+                                                <i class="fa fa-heart"></i>
+                                            </a>
+                                          
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -212,6 +223,7 @@ export default {
   components: { MyNavbar },
   data() {
       return {
+        favoris: [],
           annonces: [],
           annonce: {
               title: '',
@@ -260,6 +272,61 @@ export default {
     voirDetailsAnnonce(id) {
     this.$router.push({ name: 'AnnonceDetail', params: { id } });
   },
+  isFavorite(annonceId) {
+            console.log(this.favoris.length)
+            return this.favoris.some(fav => fav.idAnnonce == annonceId);
+        },
+        async addFavorite(annonceId) {
+            let userId = JSON.parse(localStorage.getItem('userData'))._id
+            try {
+                const response = await axios.post('http://localhost:3000/favoris/addFavoris', { userId: userId, idAnnonce: annonceId });
+                console.log('Added to favorites:', response.data);
+                this.favoris.push({ _id: response.data._id, idAnnonce: annonceId }); // Add the new favorite to the list
+            } catch (error) {
+                console.error('Failed to add to favorites:', error);
+            }
+        },
+        async removeFavorite(annonceId) {
+           
+            await axios.delete(`http://localhost:3000/favoris/deleteFavoris/${annonceId}`);
+            console.log('Removed from favorites:', annonceId);
+                   this.fetchFavoris() // Remove the favorite from the list
+                
+          
+        },
+        
+         fetchFavoris() {
+            let userId = JSON.parse(localStorage.getItem('userData'))._id 
+            console.log(userId)
+            try {
+                axios.get(`http://localhost:3000/favoris/getFavoris/${userId}`)
+                    .then(response => {
+                        this.favoris = response.data;
+                     console.log("les favoris",response.data)
+                })
+               
+            } catch (error) {
+                console.error("Error fetching favorites:", error);
+            }
+        },
+        deleteAnnonce(index) {
+            const annonce = this.annonces[index];
+            let token = localStorage.getItem('token');  // Retrieve the token from localStorage
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${token}`  // Set the Authorization header
+                }
+            };
+            axios.delete(`http://localhost:3000/annonces/${annonce._id}`, config)  // Pass config to axios delete method
+                .then(() => {
+                    this.annonces.splice(index, 1);
+                    console.log('Delete successful');
+                })
+                .catch(error => {
+                    console.error('Error deleting annonce:', error);
+                    alert('Failed to delete annonce: ' + error.message);
+                });
+        },
       fetchAnnonces() {
           let token = localStorage.getItem('token');
           let config = {
@@ -293,7 +360,7 @@ export default {
           this.currentCityFilter = city;
       },
       truncateDescription(description) {
-      return description.length > 100 ? description.substring(0, 100) + '...' : description;
+      return description.length > 50 ? description.substring(0, 50) + '...' : description;
     }
   },
   name: 'HomeView',

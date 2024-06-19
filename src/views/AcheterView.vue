@@ -124,28 +124,39 @@
             <h1 class="mb-2">Annonces à Vendre </h1>
         </div>
     </div>
-    <div class="row g-4 custom-padding">
-        <div v-for="annonce in filteredAnnonces" :key="annonce.id" class="col-lg-4 col-md-6">
-            <div class="property-item rounded overflow-hidden h-100">
-                <div class="position-relative overflow-hidden">
-                    <a :href="annonce.link || '#'">
-                        <img :src="'http://localhost:3000/' + annonce.image || '../Assets/img/default-property.jpg'"
-                            class="img-fluid" alt="Image de l'annonce">
-                    </a>
-                    <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
-                        {{ annonce.status }}</div>
-                    <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
-                        {{ annonce.type }}</div>
-                </div>
-                <div class="p-4 pb-0">
-                    <h5 class="text-primary mb-1">{{ annonce.title }}</h5>
-                    <h5 class="text-primary mb-3">{{ annonce.price }} DT</h5>
-                    <small class="flex-fill text-center"><i class="fa fa-ruler-combined text-primary me-2"></i>{{
-                        annonce.area }} m²</small>
-                    <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
-                    <p>Déscription: {{ annonce.description }}</p>
-                    <button type="button" class="btn btn-warning btn-sm">Voir Annonce</button>
-                </div>
+    <div class="container-xxl py-5">
+    <div id="contents" class="contents-container">
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+    <div class="row g-4">
+                            <div v-for="(annonce) in filteredAnnonces" :key="annonce._id"
+                                class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                                <div class="property-item rounded overflow-hidden h-100 d-flex flex-column">
+                                    <div class="position-relative overflow-hidden">
+                                        <a :href="annonce.link || '#'">
+                                            <img :src="'http://localhost:3000/' + annonce.image || '../Assets/img/default-property.jpg'"
+                                                class="img-fluid" alt="Image de l'annonce">
+                                        </a>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            {{ annonce.type }}
+                                        </div>
+                                    </div>
+                                    <div class="p-4 pb-0 flex-grow-1 d-flex flex-column">
+                                        <h5 class="text-primary mb-1">{{ annonce.title }}</h5>
+                                        <h5 class="text-secondary mb-3">{{ annonce.price }} DT</h5>
+                                        <small class="flex-fill text-center"><i
+                                                class="fa fa-ruler-combined text-primary me-2"
+                                                style="color: #5c6060;"></i>{{ annonce.area }} m²
+                                        </small>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
+                                        <p>Description: {{ annonce.description }}</p>
+                                        <div class="mt-auto mb-3">
+                                            <button type="button" class="btn btn-warning annonce-button"
+                                                @click="voirDetailsAnnonce(annonce._id)">Voir annonce</button>
+                                        </div>
                 <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
                     <a v-if="isFavorite(annonce._id)" href="#" class="icon-link"
                         @click.prevent="removeFavorite(annonce._id)">
@@ -157,16 +168,9 @@
                 </div>
             </div>
         </div>
-        <div class="paging">
-            <a href="#" class="disabled">Previous</a>
-            <div class="page-square current">1</div>
-            <div class="page-square"> <a href="/page/2">2</a></div>
-            <div class="page-square"><a href="/page/3">3</a></div>
-            <div class="page-square"><a href="/page/4">4</a></div>
-            <div class="page-square"><a href="/page/5">5</a></div>
-            <a href="/page/2">Next</a>
-            <span class="paging-info">Page 1 of X</span>
         </div>
+        </div></div></div></div></div></div>
+        
 
     </div>
 
@@ -300,7 +304,24 @@ export default {
 /*paging style*/
 
 
-
+.property-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.property-item .p-4.pb-0 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.property-item .mt-auto {
+    margin-top: auto;
+}
+.property-item img {
+  height: 300px; /* Hauteur fixe pour toutes les images des cartes */
+  width: 100%;   /* Assure que l'image prend toute la largeur disponible */
+  object-fit: cover; /* Assure que l'image remplit le conteneur en conservant ses proportions */
+}
 
 .custom-input,
 .custom-but {
