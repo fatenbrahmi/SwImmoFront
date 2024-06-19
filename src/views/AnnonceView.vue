@@ -1,9 +1,7 @@
 <template>
-
     <MyNavbar />
     <div id="contents" class="contents-container">
         <div class="contents-container d-flex justify-content-end align-items-center">
-
             <div class="input-group rounded" style="max-width: 400px;">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" v-model="searchQuery" />
@@ -32,7 +30,6 @@
                     </li>
                     <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('villa')">Villa</a></li>
                     <li><a class="dropdown-item" href="#" @click.prevent="setTypeFilter('terrain')">Terrain</a></li>
-
                 </ul>
             </div>
 
@@ -43,7 +40,7 @@
             </div>
             <div class="modal fade" id="annonceModal" tabindex="-1" aria-labelledby="annonceModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="max-width: 450px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="annonceModalLabel">Ajouter une annonce</h5>
@@ -51,43 +48,35 @@
                         </div>
                         <div class="modal-body">
                             <form @submit.prevent="submitAnnonce">
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <input v-model="annonce.title" type="text" class="form-control input-smaller"
                                         id="title" placeholder="Titre" required>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <textarea v-model="annonce.description" class="form-control input-smaller"
                                         id="description" placeholder="Description" required></textarea>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <input v-model="annonce.price" type="number" class="form-control input-smaller"
                                         id="price" placeholder="Prix" required>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <input type="file" @change="handleFileUpload" class="form-control input-smaller"
                                         id="image" placeholder="Image" required>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <input v-model="annonce.area" type="number" class="form-control input-smaller"
                                         id="area" placeholder="Surface" required>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <input v-model="annonce.rooms" type="number" class="form-control input-smaller"
                                         id="rooms" placeholder="Nombre de pièces" required>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <input v-model="annonce.city" type="text" class="form-control input-smaller"
                                         id="city" placeholder="Ville" required>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <select v-model="annonce.type" class="form-select" id="type">
                                         <option value="maison">Maison</option>
                                         <option value="appartement">Appartement</option>
@@ -96,8 +85,7 @@
                                         <option value="autres">Autres</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
-
+                                <div class="mb-2">
                                     <select v-model="annonce.status" class="form-select" id="status">
                                         <option value="Vendre">À vendre</option>
                                         <option value="Louer">À louer</option>
@@ -113,15 +101,86 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Update Annonce Modal -->
+            <div class="modal fade" id="updateAnnonceModal" tabindex="-1" aria-labelledby="updateAnnonceModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" style="max-width: 450px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateAnnonceModalLabel">Modifier une annonce</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="submitUpdate">
+                                <!-- Check if currentAnnonce is not null and has properties -->
+                                <div v-if="currentAnnonce && Object.keys(currentAnnonce).length > 0">
+                                    <div class="mb-2">
+                                        <input v-model="currentAnnonce.title" type="text"
+                                            class="form-control input-smaller" id="title" placeholder="Titre" required>
+                                    </div>
+                                    <div class="mb-2">
+                                        <textarea v-model="currentAnnonce.description"
+                                            class="form-control input-smaller" id="description"
+                                            placeholder="Description" required></textarea>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input v-model="currentAnnonce.price" type="number"
+                                            class="form-control input-smaller" id="price" placeholder="Prix" required>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="file" @change="handleFileUpload" class="form-control input-smaller"
+                                            id="image" placeholder="Image">
+                                    </div>
+                                    <div class="mb-2">
+                                        <input v-model="currentAnnonce.area" type="number"
+                                            class="form-control input-smaller" id="area" placeholder="Surface" required>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input v-model="currentAnnonce.rooms" type="number"
+                                            class="form-control input-smaller" id="rooms" placeholder="Nombre de pièces"
+                                            required>
+                                    </div>
+                                    <div class="mb-2">
+                                        <input v-model="currentAnnonce.city" type="text"
+                                            class="form-control input-smaller" id="city" placeholder="Ville" required>
+                                    </div>
+                                    <div class="mb-2">
+                                        <select v-model="currentAnnonce.type" class="form-select" id="type">
+                                            <option value="maison">Maison</option>
+                                            <option value="appartement">Appartement</option>
+                                            <option value="villa">Villa</option>
+                                            <option value="terrain">Terrain</option>
+                                            <option value="autres">Autres</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <select v-model="currentAnnonce.status" class="form-select" id="status">
+                                            <option value="Vendre">À vendre</option>
+                                            <option value="Louer">À louer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn annonce-button btn-sm">Modifier</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of the Update Annonce Modal -->
         </div>
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane fade show p-0 active">
                         <div class="row g-4">
-                            <div v-for="(annonce) in filteredAnnonces" :key="annonce._id"
+                            <div v-for="(annonce, index) in filteredAnnonces" :key="annonce._id"
                                 class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                                <div  class="property-item rounded overflow-hidden h-100">
+                                <div class="property-item rounded overflow-hidden h-100">
                                     <div class="position-relative overflow-hidden">
                                         <a :href="annonce.link || '#'">
                                             <img :src="'http://localhost:3000/' + annonce.image || '../Assets/img/default-property.jpg'"
@@ -136,8 +195,8 @@
                                         <h5 class="text-primary mb-1">{{ annonce.title }}</h5>
                                         <h5 class="text-secondary mb-3">{{ annonce.price }} DT</h5>
                                         <small class="flex-fill text-center"><i
-                                                class="fa fa-ruler-combined text-primary me-2"></i>{{
-                                            annonce.area }} m²</small>
+                                                class="fa fa-ruler-combined text-primary me-2"
+                                                style="color: #5c6060;"></i>{{ annonce.area }} m²</small>
                                         <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ annonce.city }}</p>
                                         <p>Description: {{ annonce.description }}</p>
                                         <button type="button" class="btn btn-outline-primary btn-sm annonce-button">Voir
@@ -145,7 +204,7 @@
                                         <div class="icon-container position-absolute bottom-0 end-0 px-3 pb-2">
                                             <a v-if="isFavorite(annonce._id)" href="#" class="icon-link"
                                                 @click.prevent="removeFavorite(annonce._id)">
-                                                <i  style="color:red;" class="fa fa-heart"></i>
+                                                <i style="color:red;" class="fa fa-heart"></i>
                                             </a>
                                             <a v-else href="#" class="icon-link"
                                                 @click.prevent="addFavorite(annonce._id)">
@@ -154,11 +213,10 @@
                                             <a href="#" class="icon-link" @click.prevent="editAnnonce(annonce)">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <a href="#" class="icon-link" @click.prevent="deleteAnnonce(annonce._id)">
+                                            <a href="#" class="icon-link" @click.prevent="deleteAnnonce(index)">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -169,9 +227,12 @@
         </div>
     </div>
 </template>
+
 <script>
 import MyNavbar from '@/components/MyNavbar.vue';
 import axios from 'axios';
+import { Modal } from 'bootstrap';
+
 export default {
     components: { MyNavbar },
     data() {
@@ -191,15 +252,14 @@ export default {
             },
             searchQuery: '',
             currentFilter: 'Tous',
-            currentTypeFilter: '' // New filter for Type de bien
+            currentTypeFilter: '', // New filter for Type de bien
+            currentAnnonce: null // For editing
         };
     },
     mounted() {
         this.fetchAnnonces();
         // Sélectionnez chaque icône du cœur individuellement
         this.fetchFavoris()
-        
-
     },
     computed: {
         filteredAnnonces() {
@@ -216,55 +276,52 @@ export default {
     methods: {
         isFavorite(annonceId) {
             console.log(this.favoris.length)
-            return this.favoris.some(fav => fav.idAnnonce == annonceId);
+            return this.favoris.some(fav => fav.idAnnonce._id == annonceId);
         },
         async addFavorite(annonceId) {
             let userId = JSON.parse(localStorage.getItem('userData'))._id
             try {
                 const response = await axios.post('http://localhost:3000/favoris/addFavoris', { userId: userId, idAnnonce: annonceId });
                 console.log('Added to favorites:', response.data);
-                this.favoris.push({ _id: response.data._id, idAnnonce: annonceId }); // Add the new favorite to the list
+                this.favoris.push({ _id: response.data._id, idAnnonce: response.data.idAnnonce });
+                this.fetchFavoris()
             } catch (error) {
                 console.error('Failed to add to favorites:', error);
             }
         },
         async removeFavorite(annonceId) {
-           
+
             await axios.delete(`http://localhost:3000/favoris/deleteFavoris/${annonceId}`);
             console.log('Removed from favorites:', annonceId);
-                   this.fetchFavoris() // Remove the favorite from the list
-                
-          
+            this.fetchFavoris() // Remove the favorite from the list
         },
-        
-         fetchFavoris() {
-            let userId = JSON.parse(localStorage.getItem('userData'))._id 
+
+        fetchFavoris() {
+            let userId = JSON.parse(localStorage.getItem('userData'))._id
             console.log(userId)
             try {
                 axios.get(`http://localhost:3000/favoris/getFavoris/${userId}`)
                     .then(response => {
                         this.favoris = response.data;
-                     console.log("les favoris",response.data)
-                })
-               
+                        console.log("les favoris", response.data)
+                    })
+
             } catch (error) {
                 console.error("Error fetching favorites:", error);
             }
         },
         fetchAnnonces() {
-            //Retrieve the Authentication Token
-            let token = localStorage.getItem('token')
-            //Configure the HTTP Request Headers
+            let token = localStorage.getItem('token');
             let config = {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }
-            axios.get('http://localhost:3000/annonces', config)    //Make an HTTP GET Request
-                .then(response => {     //handles the response from the server
+            axios.get('http://localhost:3000/annonces', config)
+                .then(response => {
                     this.annonces = response.data;
                 })
-                .catch(error => console.error("Error fetching annonces:", error));    //Error Handling
+                .catch(error => console.error("Error fetching annonces:", error));
         },
         submitAnnonce() {
             let formData = new FormData();
@@ -287,12 +344,45 @@ export default {
                 .then(response => {
                     this.annonces.push(response.data);
                     this.resetAnnonce();
-                    this.hideModal();
+                    this.hideModal('annonceModal');
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Erreur lors de l’ajout de l’annonce: ' + error.message);
                 });
+        },
+        editAnnonce(annonce) {
+            this.currentAnnonce = { ...annonce };
+            const updateModal = new Modal(document.getElementById('updateAnnonceModal'));
+            updateModal.show();
+        },
+        submitUpdate() {
+            let formData = new FormData();
+            formData.append('title', this.currentAnnonce.title);
+            formData.append('description', this.currentAnnonce.description);
+            formData.append('price', this.currentAnnonce.price);
+            formData.append('area', this.currentAnnonce.area);
+            formData.append('rooms', this.currentAnnonce.rooms);
+            formData.append('city', this.currentAnnonce.city);
+            formData.append('type', this.currentAnnonce.type);
+            formData.append('status', this.currentAnnonce.status);
+            // Check if a new image has been uploaded
+            if (this.currentAnnonce.image instanceof File) {
+                formData.append('image', this.currentAnnonce.image);
+            }
+
+            axios.put(`http://localhost:3000/annonces/${this.currentAnnonce._id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }).then(() => {
+                this.fetchAnnonces(); // Refresh the list
+                this.hideModal('updateAnnonceModal'); // Hide the update modal
+            }).catch(error => {
+                console.error('Update failed:', error);
+                alert('Failed to update annonce: ' + error.message);
+            });
         },
         resetAnnonce() {
             this.annonce = {
@@ -308,12 +398,19 @@ export default {
             };
         },
         handleFileUpload(event) {
-            this.annonce.image = event.target.files[0];
+            if (this.currentAnnonce) {
+                this.currentAnnonce.image = event.target.files[0];
+            } else {
+                this.annonce.image = event.target.files[0];
+            }
         },
-        hideModal() {
-            const modal = document.getElementById('annonceModal');
+        hideModal(modalId) {
+            const modal = document.getElementById(modalId);
             if (modal) {
-                modal.classList.remove('show');
+                const bsModal = Modal.getInstance(modal);
+                if (bsModal) {
+                    bsModal.hide();
+                }
                 document.body.classList.remove('modal-open');
                 const backdrop = document.querySelector('.modal-backdrop');
                 if (backdrop) {
@@ -321,9 +418,6 @@ export default {
                 }
             }
         },
-
-
-        
         deleteAnnonce(index) {
             const annonce = this.annonces[index];
             let token = localStorage.getItem('token');  // Retrieve the token from localStorage
@@ -352,12 +446,11 @@ export default {
 }
 </script>
 
-
 <style>
 .icon-container {
     display: flex;
     align-items: center;
-    justify-content: end;
+justify-content: flex-end;
     /* Align icons to the end of the flex container */
     color: #c6c8ca;
     /* Grey color */
@@ -380,12 +473,14 @@ export default {
     /* Color on hover */
 }
 
+
 .fa-heart,
 .fa-pencil-alt,
 .fa-trash {
     /* Ensure all icons have the same color and style */
     color: #c6c8ca;
 }
+
 .input-smaller {
     padding: 5px 10px;
     /* Réduit le padding pour diminuer la hauteur */
@@ -455,7 +550,6 @@ export default {
     color: #131832;
 }
 
-
 .paging {
     display: flex;
     justify-content: center;
@@ -508,7 +602,6 @@ export default {
     margin-left: 10px;
     color: #f2f1f1;
 }
-
 
 
 

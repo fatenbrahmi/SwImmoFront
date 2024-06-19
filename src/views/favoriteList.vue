@@ -1,12 +1,8 @@
 <template>
    <div>
       <MyNavbar />
-      <div v-if="loading" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-         <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-         </div>
-      </div>
-      <div v-else>
+      
+      <div >
          <h1>Ta liste des favoris</h1>
          <div v-for="(fav) in favorites" :key="fav._id" class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="property-item rounded overflow-hidden h-100">
@@ -50,7 +46,7 @@ export default {
    mounted() {
       axios.get(`http://localhost:3000/favoris/getFavoris/${user._id}`)
          .then(response => {
-            this.favorites = response.data;
+            this.favorites = response.data.map(favorite=>favorite.idAnnonce);
             this.loading = false;
          })
          .catch(error => {
@@ -66,3 +62,6 @@ export default {
    }
 }
 </script>
+<style>
+
+</style>

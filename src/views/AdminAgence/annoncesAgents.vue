@@ -185,7 +185,8 @@ export default {
             city: '',
             type: 'maison',
             status: 'Vendre',
-            agence: null
+            agence: null,
+            userId : null
          },
          searchQuery: '',
          currentFilter: 'Tous',
@@ -227,7 +228,7 @@ export default {
                }
             };
             let response = await axios.get('http://localhost:3000/annonces', config);
-            this.annonces = response.data;
+            this.annonces = response.data.filter(el=>el.agence == JSON.parse(localStorage.getItem('userData')).agence)
          } catch (error) {
             console.error("Error fetching annonces:", error);
          }
@@ -244,8 +245,11 @@ export default {
             formData.append('type', this.annonce.type);
             formData.append('status', this.annonce.status);
             formData.append('image', this.annonce.image);
-            formData.append('agence', this.annonce.agence);
+            formData.append('agence', JSON.parse(localStorage.getItem('userData')).agence);
+            formData.append('userId', JSON.parse(localStorage.getItem('userData'))._id);
 
+            console.log(formData)
+            console.log(JSON.parse(localStorage.getItem('userData')).agence)
             let token = localStorage.getItem('token');
             let response = await axios.post('http://localhost:3000/annonces/createAnnonce', formData, {
                headers: {
@@ -338,7 +342,7 @@ p {
 .icon-container {
    display: flex;
    align-items: center;
-   justify-content: end;
+   justify-content: flex-end;
    /* Align icons to the end of the flex container */
    color: #c0c0c1;
    /* Grey color */

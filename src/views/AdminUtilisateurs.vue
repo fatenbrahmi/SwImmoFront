@@ -92,13 +92,14 @@
                <div class="panel-body text-center">
                   <div class="userprofile">
                      <div class="userpic">
-                        <img :src="'http://localhost:3000/' + user.photoProfil || 'path/to/your/white-image.png'" alt="" class="userpicimg">
+                        <img :src="'http://localhost:3000/' + user.photoProfil || 'path/to/your/white-image.png'" alt=""
+                           class="userpicimg">
                      </div>
                      <p><strong></strong> {{ user.nom }} {{ user.prenom }}</p>
                      <p><strong><i class="bi bi-envelope-fill"></i>Email:</strong> <a :href="`mailto:${user.email}`">{{
-                           user.email }}</a></p>
+                        user.email }}</a></p>
                      <p><strong><i class="bi bi-phone"></i>Téléphone:</strong> {{ user.telephone }}</p>
-                     <p><strong><i class="bi bi-geo-alt-fill"></i> Profil:</strong> {{ user.Profil}}</p>
+                     <p><strong><i class="bi bi-geo-alt-fill"></i> Profil:</strong> {{ user.Profil }}</p>
                      <button type="button" class="btn custom-button btn-sm">Voir profil</button>
                      <a href="#" class="btn btn-link pull-right btn-sm" @click.prevent="deleteUser(index)"><i
                            class="fa fa-trash"></i></a>
@@ -168,18 +169,18 @@ export default {
       },
       submitUser() {
          axios.post('http://localhost:3000/auth/users', this.user)
-         .then(response => {
-            this.users.push(response.data);
-            this.hideModal();
-            this.resetUser();
-        })
-        .catch(error => {
-            console.error('Error adding user:', error);
-            alert(`Erreur lors de l’ajout de l’utilisateur: ${error.response ? error.response.data.message : error.message}`);
-        });
+            .then(response => {
+               this.users.push(response.data);
+               this.hideModal();
+               this.resetUser();
+            })
+            .catch(error => {
+               console.error('Error adding user:', error);
+               alert(`Erreur lors de l’ajout de l’utilisateur: ${error.response ? error.response.data.message : error.message}`);
+            });
       },
       resetUser() {
-      this.user = { nom: '', prenom: '', email: '', motDePasse: '', telephone: '', Profil: '', ville: '' };
+         this.user = { nom: '', prenom: '', email: '', motDePasse: '', telephone: '', Profil: '', ville: '' };
       },
       hideModal() {
          const modal = document.getElementById('userModal'); // Get the modal by ID
@@ -192,38 +193,31 @@ export default {
             }
          }
       },
-     deleteUser(index) {
-    const user = this.filteredUsers[index]; // Make sure you're accessing the filtered list if that's displayed
-    console.log("Deleting user at index", index, "with ID", user._id); // Helps in debugging
-        axios.delete(`http://localhost:3000/auth/users/${user._id}`).then(() => {
-        this.users.splice(this.users.findIndex(u => u._id === user._id), 1); // Remove the user by finding the exact match in the main array
-        console.log("User deleted");
-    }).catch(error => {
-        console.error('Error deleting user:', error);
-    });
-     }
+      deleteUser(index) {
+         const user = this.filteredUsers[index]; // Make sure you're accessing the filtered list if that's displayed
+         console.log("Deleting user at index", index, "with ID", user._id); // Helps in debugging
+         axios.delete(`http://localhost:3000/auth/users/${user._id}`).then(() => {
+            this.users.splice(this.users.findIndex(u => u._id === user._id), 1); // Remove the user by finding the exact match in the main array
+            console.log("User deleted");
+         }).catch(error => {
+            console.error('Error deleting user:', error);
+         });
+      }
 
    }
 };
 </script>
 
-<style>
-/* Ajouter une couleur de fond au champ de saisie */
-.input-group.rounded input[type="search"]:focus,
-.form-control.rounded:focus {
-    background-color: #07528a; /* Couleur de fond lorsqu'il est en focus */
-}
+<style scoped>
 
-.dropdown-item{
-   color: #36667c
-}
+
 /* rest of buttons */
 .custom-button {
    background-color: #ffffff;
    /* Custom blue color */
    border: 1px solid #ffffff;
    /* Border color */
-   color: #1e9dd7;
+   color: #71a2b9;
    /* White text for better contrast */
 }
 
@@ -233,14 +227,19 @@ export default {
    border-color: #71a2b9;
    /* Even darker border on hover */
    color: #ffffff;
-      /* White text for better contrast */
+   /* White text for better contrast */
 }
+
 .userlist {
    padding: 20px;
-   width: 250px; /* Définir une largeur fixe pour chaque carte */
-   height: 400px; /* Définir une hauteur fixe pour chaque carte */
-   margin: 10px; /* Ajouter une marge pour l'espace entre les cartes */
+   width: 250px;
+   /* Définir une largeur fixe pour chaque carte */
+   height: 400px;
+   /* Définir une hauteur fixe pour chaque carte */
+   margin: 10px;
+   /* Ajouter une marge pour l'espace entre les cartes */
 }
+
 .userlist .panel-body {
    height: 100%;
    display: flex;
@@ -563,18 +562,6 @@ body {
 .panel-yellow.userlist p a,
 .panel-blue.userlist p a {
    color: rgba(255, 255, 255, 0.8);
-}
-
-.progress-bar-success,
-.status.active,
-.panel-green,
-.panel-green>.panel-heading,
-.btn-success,
-.fc-event,
-.badge.green,
-.event_green {
-   color: white;
-   background-color: #8BC34A;
 }
 
 .progress-bar-warning,

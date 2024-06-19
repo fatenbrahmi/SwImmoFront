@@ -241,14 +241,15 @@ export default {
         },
         isFavorite(annonceId) {
             console.log(this.favoris.length)
-            return this.favoris.some(fav => fav.idAnnonce == annonceId);
+            return this.favoris.some(fav => fav.idAnnonce._id == annonceId);
         },
         async addFavorite(annonceId) {
             let userId = JSON.parse(localStorage.getItem('userData'))._id
             try {
                 const response = await axios.post('http://localhost:3000/favoris/addFavoris', { userId: userId, idAnnonce: annonceId });
                 console.log('Added to favorites:', response.data);
-                this.favoris.push({ _id: response.data._id, idAnnonce: annonceId }); // Add the new favorite to the list
+                this.favoris.push({ _id: response.data._id, idAnnonce: response.data.idAnnonce });
+                this.fetchFavoris()
             } catch (error) {
                 console.error('Failed to add to favorites:', error);
             }
@@ -258,9 +259,8 @@ export default {
             await axios.delete(`http://localhost:3000/favoris/deleteFavoris/${annonceId}`);
             console.log('Removed from favorites:', annonceId);
             this.fetchFavoris() // Remove the favorite from the list
-
-
         },
+
         fetchFavoris() {
             let userId = JSON.parse(localStorage.getItem('userData'))._id
             console.log(userId)
@@ -285,8 +285,14 @@ export default {
                 heartIcon.classList.toggle('active');
             });
         });
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 45) {
+                document.querySelector('.nav-bar').classList.add('sticky-top');
+            } else {
+                document.querySelector('.nav-bar').classList.remove('sticky-top');
+            }
+        });
         this.fetchFavoris()
-      
     }
 
 
